@@ -1,65 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Weapon : MonoBehaviour
 {
-    public Camera camera;
-    public Gun gun;
+    //Bullet 
+    public GameObject bullet;
+    public float shootForce, upwardForce;
+
+    //Gun
+    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    public int magSize;
+    
+    private int bulletsLeft;
+
+    private bool shooting, readyToShoot, reloading;
+
+    public Camera cam;
     public Transform nuzzle;
-    public float damage;
-    public float fireRate;
-    public float moveSpeed;
 
-    private float shootTimer = 0f;
-    private RaycastHit hit;
-    private int shootableLayer = 7;
-    private int bitMask;
+    public GameObject nuzzleFlash;
+    public TextMeshProUGUI ammoDisplay;
 
-    [SerializeField]
-    private Vector3 rot;
+    private bool allowInvoke = true;
 
-    private void Start()
+    private void Awake()
     {
-        gun = new Gun(damage, fireRate, moveSpeed);
-        bitMask = 1 << shootableLayer;
+        bulletsLeft = magSize;
+        readyToShoot = true;
     }
 
     private void Update()
     {
-        if (transform.parent == null) return;
+        Inputs();
 
-        transform.localRotation = Quaternion.Euler(rot);
-
-        if (shootTimer < gun.GetFireRate()) shootTimer += Time.deltaTime;
-        GetInputs();
-        if (shootTimer >= gun.GetFireRate()) GetComponent<Renderer>().material.color = Color.black;
-        else GetComponent<Renderer>().material.color = Color.white;
-
-        GameObject.Find("Player").GetComponent<PlayerMovement>().speedMultiplier = gun.GetMoveSpeed();
+        if (ammoDisplay != null)
+            ammoDisplay.SetText(bulletsLeft + " / " + magSize);
     }
 
-    private void GetInputs()
+    private void Inputs()
     {
-        if (Input.GetMouseButton(0)) Shoot();
-        
+        shooting = Input.GetKey(KeyCode.Mouse0);
+
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading) Reload();
+        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
+
+        if(readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        {
+            Shoot();
+        }
     }
 
     private void Shoot()
-    {        
-        Ray ray = camera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+    {
+        readyToShoot = false;
 
-        Vector3 dir = ray.direction;// - nuzzle.transform.position;
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
 
-        if (shootTimer >= gun.GetFireRate())
-        {//local transform y going positive
-            if(Physics.Raycast(nuzzle.transform.position, dir, out hit, Mathf.Infinity, bitMask))
-            {
-                hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                ShootingRange._instance.IncreaseHit();
-            }
-            shootTimer = 0f;
-        } 
+        Vector3 target;
+        if (Physics.Raycast(ray, out hit)) target = hit.point;
+        else target = ray.GetPoint(80); //somewhere far away
+
+        Vector3 dir = target - nuzzle.position;
+
+        //spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        Vector3 targetDir = dir + new Vector3(x, y, 0);
+
+        GameObject currBullet = Instantiate(bullet, nuzzle.position, Quaternion.identity);
+        currBullet.transform.forward = targetDir.normalized;
+
+        //add forces
+        currBullet.GetComponent<Rigidbody>().AddForce(targetDir.normalized * shootForce, ForceMode.Impulse);
+
+        if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
+
+        bulletsLeft--;
+
+        if (allowInvoke)
+        {
+            Invoke("ResetShot", timeBetweenShooting);
+            allowInvoke = false;
+        }
+
     }
+
+    private void ResetShot()
+    {
+        readyToShoot = true;
+        allowInvoke = true;
+    }
+
+    private void Reload()
+    {
+        GetComponent<Renderer>().material.color = Color.black;
+        reloading = true;
+        Invoke("ReloadFinish", reloadTime);
+    }
+
+    private void ReloadFinish()
+    {
+        GetComponent<Renderer>().material.color = Color.white;
+        bulletsLeft = magSize;
+        reloading = false;
+    }
+
+    
 }
 

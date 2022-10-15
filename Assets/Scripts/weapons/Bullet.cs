@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        Invoke("DestroySelf", 2f);           
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if(collision.gameObject.layer != 7) { DestroySelf(); return; }
+        collision.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        ShootingRange._instance.IncreaseHit();
+        DestroySelf();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        ShootingRange._instance.IncreaseHit();
+        DestroySelf();
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject)
+;   }
 }
