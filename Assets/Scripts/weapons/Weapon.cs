@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using TMPro;
 
 public class Weapon : MonoBehaviour
@@ -12,7 +13,10 @@ public class Weapon : MonoBehaviour
     //Gun
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magSize;
-    
+
+    //Gun Firing Observer Event
+    public event Action Fire = delegate { };
+
     private int bulletsLeft;
 
     private bool shooting, readyToShoot, reloading;
@@ -48,7 +52,9 @@ public class Weapon : MonoBehaviour
 
         if(readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
+            Fire.Invoke();
             Shoot();
+            
         }
     }
 
@@ -66,8 +72,8 @@ public class Weapon : MonoBehaviour
         Vector3 dir = target - nuzzle.position;
 
         //spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = UnityEngine.Random.Range(-spread, spread);
+        float y = UnityEngine.Random.Range(-spread, spread);
 
         Vector3 targetDir = dir + new Vector3(x, y, 0);
 
