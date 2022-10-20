@@ -345,8 +345,22 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 48262e4ee47410488fcf78f55056bc2e
     GuidInternal: 
-    m_lastTime: -8585353613798472606
-    List: []
+    m_lastTime: -8585353598427921369
+    List:
+    - name: Main
+      guid: a44614dec143d5428c52c75a894f8d9f
+      id: 3161908922
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 48262e4ee47410488fcf78f55056bc2e
+      - ElementName: Main
+        ObjectType: 7
+        guid: a44614dec143d5428c52c75a894f8d9f
+      Path: SoundBanks\Default Work Unit\Main
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -359,8 +373,25 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: b6c6316a6e323a47b7c5c965d5847417
     GuidInternal: 
-    m_lastTime: -8585353613802808365
-    List: []
+    m_lastTime: -8585353598428066393
+    List:
+    - name: GunShot
+      guid: 3451b0a696c80749afdd658bfe3077fb
+      id: 1287408361
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: GunShot
+        ObjectType: 3
+        guid: 3451b0a696c80749afdd658bfe3077fb
+      Path: Events\Default Work Unit\GunShot
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -612,7 +643,7 @@ MonoBehaviour:
     m_lastTime: -8585353613801013043
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 060000000b0000000c000000
+  ExpandedWaapiItemIds: 06000000070000000b0000000c0000002200000023000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

@@ -8841,7 +8841,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1531334933}
   - component: {fileID: 1531334932}
-  - component: {fileID: 1531334934}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -8889,30 +8888,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1531334934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531334931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb020707275e6846b8ae5527135c1de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: cdb449c5eaad7454c90061908bab6cc1, type: 2}
-  decodeBank: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!1 &1541317784
 GameObject:
   m_ObjectHideFlags: 0
@@ -10919,9 +10894,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b186a192b4fde34a96993ca85385f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunShotSound: {fileID: 8300000, guid: e3462c1bacac04d42be040f0db75befa, type: 3}
-  _emptyMagSound: {fileID: 8300000, guid: e3462c1bacac04d42be040f0db75befa, type: 3}
-  _locationToPlay: {fileID: 145838843}
+  gunShot:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3cb467e343c06e843bf2a250d324b38c, type: 2}
 --- !u!1 &1922104519
 GameObject:
   m_ObjectHideFlags: 0
@@ -11407,6 +11383,7 @@ GameObject:
   - component: {fileID: 2037817312}
   - component: {fileID: 2037817311}
   - component: {fileID: 2037817310}
+  - component: {fileID: 2037817313}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -11464,6 +11441,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2037817313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037817309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb020707275e6846b8ae5527135c1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: cdb449c5eaad7454c90061908bab6cc1, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &2073110333
 GameObject:
   m_ObjectHideFlags: 0

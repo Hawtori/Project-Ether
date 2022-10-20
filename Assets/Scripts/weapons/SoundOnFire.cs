@@ -5,9 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Weapon))]
 public class SoundOnFire : MonoBehaviour
 {
-    [SerializeField] AudioClip _gunShotSound = null;
-    [SerializeField] AudioClip _emptyMagSound = null;
-    [SerializeField] Transform _locationToPlay = null;
+
+    public AK.Wwise.Event gunShot;
 
     Weapon _weapon = null;
 
@@ -30,19 +29,17 @@ public class SoundOnFire : MonoBehaviour
 
     void OnFire()
     {
-        if (_gunShotSound != null && _locationToPlay != null)
+        if (gunShot != null)
         {
-            AudioSource.PlayClipAtPoint
-                (_gunShotSound, _locationToPlay.position);
+            gunShot.Post(gameObject);
         }
     }
 
     void OnEmpty()
     {
-        if (_gunShotSound != null && _locationToPlay != null)
+        if (gunShot != null)
         {
-            AudioSource.PlayClipAtPoint
-              (_emptyMagSound, _locationToPlay.position);
+            gunShot.Post(gameObject);
         }
     }
 
