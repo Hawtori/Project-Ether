@@ -9,6 +9,7 @@ public class Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player")) return;
         other.transform.position = Vector3.zero + Vector3.up * 2f;
         ShowText();
     }

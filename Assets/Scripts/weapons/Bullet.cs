@@ -17,12 +17,12 @@ public class Bullet : MonoBehaviour
         DestroySelf();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        other.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-        ShootingRange._instance.IncreaseHit();
-        DestroySelf();
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    other.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+    //    ShootingRange._instance.IncreaseHit();
+    //    DestroySelf();
+    //}
 
     private void DestroySelf()
     {

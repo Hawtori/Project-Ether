@@ -15,7 +15,12 @@ public class ShootingRange : MonoBehaviour
     [SerializeField]
     private TMP_Text highText;
     [SerializeField]
-    private GameObject[] targets;
+    private List<GameObject> targets;
+
+    [SerializeField]
+    private List<Vector3> targetPositions;
+    private GameObject cube;
+    private bool spawnTargets = false;
 
     private int targetsHit = 0;
     private int totalTargets;
@@ -34,33 +39,72 @@ public class ShootingRange : MonoBehaviour
         }
 
         _instance = this;
-        totalTargets = targets.Length;
+        totalTargets = targets.Count;
+        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        targetPositions = new List<Vector3>();
+    }
+
+    private void CreateList()
+    {
+        targetPositions.Clear();
+        for (int i = 0; i < 15; i++)
+        {
+            Vector3 pos = new Vector3(Random.Range(0f, 20f), Random.Range(0f, 20f), 0);
+            targetPositions.Add(pos);
+        }
+        totalTargets = targetPositions.Count;
+    }
+
+    private void Start()
+    {
+        //flyweight to create targets
+        if(totalTargets == 0)
+        {
+            spawnTargets = true;
+
+            cube.AddComponent<BoxCollider>().size = Vector3.one * 1.5f;
+            cube.layer = 7;
+            cube.transform.parent = transform;
+            cube.transform.localScale = new Vector3(3.7716f, 3.7716f, 1);
+
+            CreateList();
+        }
     }
 
     private void Update()
     {
-        if(targetsHit == totalTargets)
+        if (spawnTargets)
         {
-            foreach (GameObject target in targets)
-            {
-                target.GetComponent<Renderer>().material.color = Color.white;
-                targetsHit = 0;
-                if (timer < highscore) highscore = timer;
-            }
-        }
+            if (targetsHit == totalTargets) { targetsHit = 0; CreateList(); }
+            cube.transform.localPosition = targetPositions[targetsHit];
+            cube.GetComponent<Renderer>().material.color = Color.white;
 
-        if(targetsHit > 0)
-        {
-            startTimer = true;
         }
         else
         {
-            if(highscore == float.MaxValue)
+            if(targetsHit == totalTargets)
+            {
+                foreach (GameObject target in targets)
+                {
+                    target.GetComponent<Renderer>().material.color = Color.white;
+                    targetsHit = 0;
+                    if (timer < highscore) highscore = timer;
+                }
+            }
+        } 
+
+        if(targetsHit > 0)
+            startTimer = true;
+        else
+        {
+            if (timer < highscore) highscore = timer;
+            if (highscore == float.MaxValue)
             highText.text = "Highscore: 0";
             else
             highText.text = "Highscore: " + highscore.ToString();
             startTimer = false;
             timer = 0f;
+            targetsHit = 0;
         }
 
         if (startTimer)
@@ -72,10 +116,16 @@ public class ShootingRange : MonoBehaviour
 
     public void IncreaseHit()
     {
-        targetsHit = 0;
-        foreach (GameObject target in targets)
+        if (!spawnTargets)
         {
-            if (target.GetComponent<Renderer>().material.color == Color.yellow) targetsHit++;
+            targetsHit = 0;
+            foreach (GameObject target in targets)
+            {
+                if (target.GetComponent<Renderer>().material.color == Color.yellow) targetsHit++;
+            }
         }
+        else 
+            targetsHit++; startTimer = true; 
+        
     }
 }

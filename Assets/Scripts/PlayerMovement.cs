@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInputs();
         Look();
+        CheckGround();
     }
 
     private void FixedUpdate()
@@ -69,30 +70,53 @@ public class PlayerMovement : MonoBehaviour
         PerformJump();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = true;
 
-            //reset variables
-            jumping = false;
-            jumpForceIncrease = 400f;
-            jumpForce = 400;
-            jumpTime = 0.2f;
-        }
-    }
+    //        //reset variables
+    //        jumping = false;
+    //        jumpForceIncrease = 400f;
+    //        jumpForce = 400;
+    //        jumpTime = 0.2f;
+    //    }
+    //}
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground")) isGrounded = false;
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground")) isGrounded = false;
+    //}
 
     private void GetInputs()
     {
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         jump = Input.GetButton("Jump");
+    }
+
+    private void CheckGround()
+    {
+        int layer = 6; //ground
+        int layerMask = 1;
+        layerMask = layerMask << layer;
+
+        //Debug.DrawRay(transform.position, Vector3.down * 3f, Color.magenta, 0.25f);
+
+        if(Physics.Raycast(transform.position, Vector3.down, 3f, layerMask))
+        {
+            isGrounded = true;
+
+            jumping = false;
+            jumpForceIncrease = 400f;
+            jumpForce = 400;
+            jumpTime = 0.2f;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     private void Look()
