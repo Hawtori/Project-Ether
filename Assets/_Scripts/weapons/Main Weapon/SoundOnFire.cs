@@ -18,24 +18,15 @@ public class SoundOnFire : MonoBehaviour
     private void OnEnable()
     {
         _weapon.Fire += OnFire;
-        _weapon.Fire += OnEmpty;
     }
 
     private void OnDisable()
     {
         _weapon.Fire -= OnFire;
-        _weapon.Fire -= OnEmpty;
+
     }
 
     void OnFire()
-    {
-        if (gunShot != null)
-        {
-            gunShot.Post(gameObject);
-        }
-    }
-
-    void OnEmpty()
     {
         if (gunShot != null)
         {

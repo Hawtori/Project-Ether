@@ -14,8 +14,12 @@ public class Weapon : MonoBehaviour
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magSize;
 
+
     //Gun Firing Observer Event
     public event Action Fire = delegate { };
+
+    //Gun Reloading Observer Event
+    public event Action Rel = delegate { };
 
     private int bulletsLeft;
 
@@ -47,8 +51,17 @@ public class Weapon : MonoBehaviour
     {
         shooting = Input.GetKey(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading) Reload();
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
+        {
+            Rel.Invoke();
+            Reload();
+        }
+
+        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+        {
+            Rel.Invoke();
+            Reload();
+        }
 
         if(readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
