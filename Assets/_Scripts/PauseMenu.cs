@@ -7,7 +7,6 @@ using TMPro;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject Menu;
-    public GameObject InGame;
     public GameObject player;
 
     public Slider xSens, ySens;
@@ -25,7 +24,6 @@ public class PauseMenu : MonoBehaviour
             Cursor.visible = true;
 
             Menu.SetActive(true);
-            InGame.SetActive(false);
             Time.timeScale = 0;
         }
         else
@@ -34,7 +32,6 @@ public class PauseMenu : MonoBehaviour
             Cursor.visible = false;
 
             Menu.SetActive(false);
-            InGame.SetActive(true);
             Time.timeScale = 1;
         }
     }
