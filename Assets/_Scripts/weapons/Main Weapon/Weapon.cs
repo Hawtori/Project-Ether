@@ -11,8 +11,10 @@ public class Weapon : MonoBehaviour
     public float shootForce, upwardForce;
 
     //Gun
-    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    public float timeBetweenShooting, spread, reloadTime;
     public int magSize;
+
+    private float spreadIncreaseY = 0, resetSpreadTime = 0;
 
 
     //Gun Firing Observer Event
@@ -33,6 +35,11 @@ public class Weapon : MonoBehaviour
 
     private bool allowInvoke = true;
 
+    private float LerpF(float a, float b, float t)
+    {
+        return a + (b - a) * t;
+    }
+
     private void Awake()
     {
         bulletsLeft = magSize;
@@ -45,6 +52,8 @@ public class Weapon : MonoBehaviour
 
         if (ammoDisplay != null)
             ammoDisplay.SetText(bulletsLeft + " / " + magSize);
+
+        ChangeSpread();
     }
 
     private void Inputs()
@@ -55,19 +64,21 @@ public class Weapon : MonoBehaviour
         {
             Rel.Invoke();
             Reload();
+            return;
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+        if (/*readyToShoot && shooting &&*/ !reloading && bulletsLeft <= 0)
         {
             Rel.Invoke();
             Reload();
+            return;
         }
 
         if(readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
             Fire.Invoke();
             Shoot();
-            
+            return;
         }
     }
 
@@ -78,9 +89,9 @@ public class Weapon : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        Vector3 target;
-        if (Physics.Raycast(ray, out hit)) target = hit.point;
-        else target = ray.GetPoint(80); //somewhere far away
+        Vector3 target = ray.GetPoint(80);
+        //if (Physics.Raycast(ray, out hit)) target = hit.point;
+        //else target = ray.GetPoint(80); //somewhere far away
 
         Vector3 dir = target - nuzzle.position;
 
@@ -106,6 +117,20 @@ public class Weapon : MonoBehaviour
             allowInvoke = false;
         }
 
+    }
+
+    private void ChangeSpread()
+    {
+        if (shooting && !reloading) { spreadIncreaseY += 0.05f; resetSpreadTime += Time.deltaTime; }
+        else { spreadIncreaseY -= 0.025f; resetSpreadTime -= Time.deltaTime; }
+
+
+
+        spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 8f);
+        resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
+        float xRot = PlayerMovement._instance.xRotation;
+        PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
+        //PlayerMovement._instance.xRotation = LerpF(xRot-spreadIncreaseY, xRot, resetSpreadTime);
     }
 
     private void ResetShot()

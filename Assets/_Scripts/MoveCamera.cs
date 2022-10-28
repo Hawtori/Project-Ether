@@ -7,10 +7,16 @@ public class MoveCamera : MonoBehaviour
     //this is so camera movement is smooth and nice
     //putting camera as child of player makes it jittery and not nice
 
-    public Transform player;
+    public Transform head;
 
-    private void Update()
+    private Vector3 LerpV3(Vector3 a, Vector3 b, float t)
     {
-        transform.position = player.transform.position;
+        return a + (b - a) * t;
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = head.position;
+
     }
 }
