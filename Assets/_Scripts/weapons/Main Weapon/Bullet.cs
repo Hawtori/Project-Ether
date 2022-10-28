@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float damage;
+
     private void Start()
     {
         Invoke("DestroySelf", 2f);           
+    }
+
+    private void Update()
+    {
+        RaycastHit hit;
+        if(Physics.SphereCast(transform.position, 1.5f, transform.forward, out hit, 5f))
+        {
+            if(hit.transform.GetComponent<Health>() != null)
+            {
+                hit.transform.GetComponent<Health>().TakeDamage(damage);
+            } 
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

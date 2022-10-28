@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         PerformJump();
     }
 
+    //previous check for if grounded
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.gameObject.CompareTag("Ground"))
@@ -96,8 +97,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void GetInputs()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        y = Input.GetAxisRaw("Vertical");
+        x = y = 0;
+
+        if (Input.GetKey(KeyCode.W)) y = 1;
+        if (Input.GetKey(KeyCode.S)) y = -1;
+        if (Input.GetKey(KeyCode.A)) x = -1;
+        if (Input.GetKey(KeyCode.D)) x = 1;
+                
         jump = Input.GetButton("Jump");
     }
 
@@ -206,5 +212,10 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     {
         rb.AddForce(Vector3.down * (gravityAmount / gravityChange));
+    }
+
+    public Vector2 GetMovement()
+    {
+        return new Vector2(x, y);
     }
 }

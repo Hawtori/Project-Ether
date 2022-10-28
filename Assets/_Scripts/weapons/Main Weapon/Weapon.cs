@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public int magSize;
 
     private float spreadIncreaseY = 0, resetSpreadTime = 0;
-
+    private float bulletsShot = 0;
 
     //Gun Firing Observer Event
     public event Action Fire = delegate { };
@@ -87,17 +87,18 @@ public class Weapon : MonoBehaviour
         readyToShoot = false;
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
+        //RaycastHit hit;
 
         Vector3 target = ray.GetPoint(80);
+
         //if (Physics.Raycast(ray, out hit)) target = hit.point;
         //else target = ray.GetPoint(80); //somewhere far away
 
         Vector3 dir = target - nuzzle.position;
 
         //spread
-        float x = UnityEngine.Random.Range(-spread, spread);
-        float y = UnityEngine.Random.Range(-spread, spread);
+        float x = UnityEngine.Random.Range(-spread * Mathf.Clamp(bulletsShot, 0, 2), spread * Mathf.Clamp(bulletsShot, 0, 2));
+        float y = UnityEngine.Random.Range(-spread * Mathf.Clamp(bulletsShot, 0, 2), spread * Mathf.Clamp(bulletsShot, 0, 2));
 
         Vector3 targetDir = dir + new Vector3(x, y, 0);
 
@@ -110,6 +111,7 @@ public class Weapon : MonoBehaviour
         if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
 
         bulletsLeft--;
+        bulletsShot++;
 
         if (allowInvoke)
         {
@@ -122,11 +124,10 @@ public class Weapon : MonoBehaviour
     private void ChangeSpread()
     {
         if (shooting && !reloading) { spreadIncreaseY += 0.05f; resetSpreadTime += Time.deltaTime; }
-        else { spreadIncreaseY -= 0.025f; resetSpreadTime -= Time.deltaTime; }
+        else { spreadIncreaseY -= 0.025f; resetSpreadTime -= Time.deltaTime; bulletsShot-= Time.deltaTime; }
 
 
-
-        spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 8f);
+        spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
         resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
         float xRot = PlayerMovement._instance.xRotation;
         PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;

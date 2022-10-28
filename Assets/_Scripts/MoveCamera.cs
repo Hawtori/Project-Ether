@@ -9,11 +9,23 @@ public class MoveCamera : MonoBehaviour
 
     public Transform head;
 
+    private Transform initHeadPos;
+
+    private float moveTime = 0;
+    private bool goUp = true;
+
+    private Vector3 vel = Vector3.zero;
     private Vector3 LerpV3(Vector3 a, Vector3 b, float t)
     {
         return a + (b - a) * t;
     }
 
+    private void Awake()
+    {
+        initHeadPos = head;
+    }
+
+    
     private void LateUpdate()
     {
         transform.position = head.position;
