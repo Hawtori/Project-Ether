@@ -166,7 +166,10 @@ public class PlayerMovement : MonoBehaviour
         y = (x == 1 ? y/1.41423f : y) * moveSpeed * speedMultiplier;
 
         Vector3 forces = transform.forward * y + transform.right * x;
-        rb.AddForce(forces);
+
+        forces = new Vector3(Mathf.Clamp(forces.x, -400, 400), Mathf.Clamp(forces.y, -400, 400), Mathf.Clamp(forces.z, -400, 400));
+
+        rb.AddForce(forces);        
     }
 
     private void Jump()

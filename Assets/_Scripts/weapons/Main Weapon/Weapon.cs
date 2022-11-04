@@ -35,6 +35,9 @@ public class Weapon : MonoBehaviour
 
     private bool allowInvoke = true;
 
+    //animations
+    private Animator anim;
+
     private float LerpF(float a, float b, float t)
     {
         return a + (b - a) * t;
@@ -44,6 +47,7 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft = magSize;
         readyToShoot = true;
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -121,11 +125,22 @@ public class Weapon : MonoBehaviour
 
     }
 
+    private float spreadIncreaseDelta = 0.075f;
     private void ChangeSpread()
     {
-        if (shooting && !reloading) { spreadIncreaseY += 0.05f; resetSpreadTime += Time.deltaTime; }
-        else { spreadIncreaseY -= 0.025f; resetSpreadTime -= Time.deltaTime; bulletsShot-= Time.deltaTime; }
-
+        if (shooting && !reloading) { 
+            spreadIncreaseY += spreadIncreaseDelta; 
+            resetSpreadTime += Time.deltaTime; 
+            spreadIncreaseDelta += Time.deltaTime / 3f;
+            spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
+        }
+        else {
+            spreadIncreaseY -= spreadIncreaseDelta/1.5f;
+            resetSpreadTime -= Time.deltaTime; 
+            bulletsShot-= Time.deltaTime; 
+            spreadIncreaseDelta -= Time.deltaTime; 
+            spreadIncreaseDelta = Mathf.Max(0.075f, spreadIncreaseDelta); 
+        }
 
         spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
         resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
@@ -143,6 +158,8 @@ public class Weapon : MonoBehaviour
     private void Reload()
     {
         GetComponent<Renderer>().material.color = Color.black;
+        if(anim != null)
+        anim.SetBool("Reload", true);
         reloading = true;
         Invoke("ReloadFinish", reloadTime);
     }
@@ -150,6 +167,8 @@ public class Weapon : MonoBehaviour
     private void ReloadFinish()
     {
         GetComponent<Renderer>().material.color = Color.white;
+        if(anim != null)
+        anim.SetBool("Reload", false);
         bulletsLeft = magSize;
         reloading = false;
     }

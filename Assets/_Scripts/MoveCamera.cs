@@ -26,7 +26,7 @@ public class MoveCamera : MonoBehaviour
     }
 
     
-    private void LateUpdate()
+    private void Update()
     {
         transform.position = head.position;
 
