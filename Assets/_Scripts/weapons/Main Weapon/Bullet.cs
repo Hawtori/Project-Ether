@@ -25,7 +25,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer != 7) { DestroySelf(); return; }
+        //if collision gameobject is not in target layer
+        if(collision.gameObject.layer != 7) { DestroySelf(); return; } 
         collision.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
         ShootingRange._instance.IncreaseHit();
         DestroySelf();

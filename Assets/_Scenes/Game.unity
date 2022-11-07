@@ -928,6 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95abf542b394c21458f5fabd3f4c1ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   bullet: {fileID: 5466279053337829215, guid: f21f0a6063d1c7d43956d61cd843b342, type: 3}
   shootForce: 300
   upwardForce: 0
@@ -2413,6 +2414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95abf542b394c21458f5fabd3f4c1ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   bullet: {fileID: 0}
   shootForce: 0
   upwardForce: 0
@@ -3673,7 +3675,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037868312}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 191b4284bca84ff4e818d5b4d1b865ab, type: 3}
   m_Name: 
@@ -3694,9 +3696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7c041ab6c96d5488fddfe2d57282e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 841068930}
-  leftPosition: {fileID: 675951449}
-  rightPosition: {fileID: 1547078108}
+  cam: {fileID: 0}
 --- !u!1 &1039205435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5716,6 +5716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95abf542b394c21458f5fabd3f4c1ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   bullet: {fileID: 5466279053337829215, guid: f21f0a6063d1c7d43956d61cd843b342, type: 3}
   shootForce: 300
   upwardForce: 0
@@ -7113,9 +7114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7c041ab6c96d5488fddfe2d57282e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 963194227}
-  leftPosition: {fileID: 1927340805}
-  rightPosition: {fileID: 110853068}
+  cam: {fileID: 0}
 --- !u!4 &2398359964931449652
 Transform:
   m_ObjectHideFlags: 0

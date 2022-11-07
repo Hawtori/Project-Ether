@@ -6,14 +6,20 @@ using TMPro;
 
 public class Weapon : MonoBehaviour
 {
+    public bool isActive;
+
     //Bullet 
     public GameObject bullet;
     public float shootForce, upwardForce;
 
     //Gun
+    public float recoilForce;
+    public float equipTime;
     public float timeBetweenShooting, spread, reloadTime;
     public int magSize;
+    public bool isAuto;
 
+    private float spreadIncreaseDelta = 0.075f;
     private float spreadIncreaseY = 0, resetSpreadTime = 0;
     private float bulletsShot = 0;
 
@@ -26,6 +32,7 @@ public class Weapon : MonoBehaviour
     private int bulletsLeft;
 
     private bool shooting, readyToShoot, reloading;
+
 
     public Camera cam;
     public Transform nuzzle;
@@ -46,12 +53,23 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         bulletsLeft = magSize;
-        readyToShoot = true;
+        readyToShoot = false;
         anim = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        Invoke("CanShoot", equipTime);
+    }
+
+    private void OnEnable()
+    {
+        Invoke("CanShoot", equipTime);
     }
 
     private void Update()
     {
+        if (!isActive) return;
         Inputs();
 
         if (ammoDisplay != null)
@@ -62,7 +80,10 @@ public class Weapon : MonoBehaviour
 
     private void Inputs()
     {
-        shooting = Input.GetKey(KeyCode.Mouse0);
+        if (isAuto)
+            shooting = Input.GetKey(KeyCode.Mouse0);
+        else
+            shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
@@ -88,6 +109,20 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        #region changing spread
+        if (!isAuto) { 
+            spreadIncreaseY += recoilForce;
+            resetSpreadTime += 0.1f;
+            spreadIncreaseDelta += 1f;
+            spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
+
+            spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
+            resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
+            //float xRot = PlayerMovement._instance.xRotation;
+            PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
+        }
+    #endregion
+
         readyToShoot = false;
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -124,29 +159,47 @@ public class Weapon : MonoBehaviour
         }
 
     }
-
-    private float spreadIncreaseDelta = 0.075f;
+        
     private void ChangeSpread()
     {
-        if (shooting && !reloading) { 
-            spreadIncreaseY += spreadIncreaseDelta; 
-            resetSpreadTime += Time.deltaTime; 
-            spreadIncreaseDelta += Time.deltaTime / 3f;
-            spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
-        }
-        else {
-            spreadIncreaseY -= spreadIncreaseDelta/1.5f;
+        if (!isAuto)
+        {
             resetSpreadTime -= Time.deltaTime; 
             bulletsShot-= Time.deltaTime; 
             spreadIncreaseDelta -= Time.deltaTime; 
-            spreadIncreaseDelta = Mathf.Max(0.075f, spreadIncreaseDelta); 
+            spreadIncreaseDelta = Mathf.Max(0.075f, spreadIncreaseDelta);
+
+            //spreadIncreaseY = -LerpF(spreadIncreaseY, 0, resetSpreadTime) ;
+            spreadIncreaseY -= 0.1f;
+
+            spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
+            resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
+            //float xRot = PlayerMovement._instance.xRotation;
+            PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
+            //PlayerMovement._instance.xRotation = LerpF(xRot-spreadIncreaseY, xRot, resetSpreadTime);
+            return;
+        }
+
+        if (shooting && !reloading)
+        {
+            spreadIncreaseY += spreadIncreaseDelta;
+            resetSpreadTime += Time.deltaTime;
+            spreadIncreaseDelta += Time.deltaTime / 3f;
+            spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
+        }
+        else
+        {
+            spreadIncreaseY -= spreadIncreaseDelta / 1.5f;
+            resetSpreadTime -= Time.deltaTime;
+            bulletsShot -= Time.deltaTime;
+            spreadIncreaseDelta -= Time.deltaTime;
+            spreadIncreaseDelta = Mathf.Max(0.075f, spreadIncreaseDelta);
         }
 
         spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
         resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
         float xRot = PlayerMovement._instance.xRotation;
         PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
-        //PlayerMovement._instance.xRotation = LerpF(xRot-spreadIncreaseY, xRot, resetSpreadTime);
     }
 
     private void ResetShot()
@@ -164,6 +217,14 @@ public class Weapon : MonoBehaviour
         Invoke("ReloadFinish", reloadTime);
     }
 
+    public void CancelReload()
+    {
+        GetComponent<Renderer>().material.color = Color.white;
+        if (anim != null) anim.SetBool("Reload", false);
+        reloading = false;
+        CancelInvoke("ReloadFinish");
+    }
+
     private void ReloadFinish()
     {
         GetComponent<Renderer>().material.color = Color.white;
@@ -173,6 +234,10 @@ public class Weapon : MonoBehaviour
         reloading = false;
     }
 
+    private void CanShoot()
+    {
+        readyToShoot = true;
+    }
     
 }
 

@@ -113,8 +113,6 @@ public class PlayerMovement : MonoBehaviour
         int layerMask = 1;
         layerMask = layerMask << layer;
 
-        //Debug.DrawRay(transform.position, Vector3.down * 3f, Color.magenta, 0.25f);
-
         if(canJump && Physics.Raycast(transform.position, Vector3.down, 3.1f, layerMask))
         {
             isGrounded = true;
@@ -165,11 +163,16 @@ public class PlayerMovement : MonoBehaviour
         x = (y == 1 ? x/1.41423f : x) * moveSpeed * speedMultiplier;
         y = (x == 1 ? y/1.41423f : y) * moveSpeed * speedMultiplier;
 
-        Vector3 forces = transform.forward * y + transform.right * x;
+        Vector3 forces = new Vector3(0, 0, 0);
+        forces = transform.forward * y + transform.right * x;
 
-        forces = new Vector3(Mathf.Clamp(forces.x, -400, 400), Mathf.Clamp(forces.y, -400, 400), Mathf.Clamp(forces.z, -400, 400));
 
+        forces = new Vector3(forces.x == float.NaN ? 0 : Mathf.Clamp(forces.x, -200 * speedMultiplier, 200 * speedMultiplier), 
+                             forces.y == float.NaN ? 0 : Mathf.Clamp(forces.y, -200 * speedMultiplier, 200 * speedMultiplier),
+                             forces.z == float.NaN ? 0 : Mathf.Clamp(forces.z, -200 * speedMultiplier, 200 * speedMultiplier));
+        
         rb.AddForce(forces);        
+
     }
 
     private void Jump()

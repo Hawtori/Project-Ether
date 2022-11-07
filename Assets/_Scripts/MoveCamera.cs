@@ -11,10 +11,10 @@ public class MoveCamera : MonoBehaviour
 
     private Transform initHeadPos;
 
-    private float moveTime = 0;
-    private bool goUp = true;
+    //private float moveTime = 0;
+    //private bool goUp = true;
 
-    private Vector3 vel = Vector3.zero;
+    //private Vector3 vel = Vector3.zero;
     private Vector3 LerpV3(Vector3 a, Vector3 b, float t)
     {
         return a + (b - a) * t;

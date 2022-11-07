@@ -4,66 +4,103 @@ using UnityEngine;
 
 public class WeaponInventory : MonoBehaviour
 {
-    public GameObject[] guns;
-    public Transform leftPosition, rightPosition;
+    public static WeaponInventory _instance { get; set; }
 
+    public Camera cam;
+    public Transform playerTransform;
+    public Transform gunPosition;
+    public int maxGuns;
+
+    [SerializeField]
+    private List<GameObject> guns;
+    private int activeGunIndex = 0;
+
+    private void Start()
+    {
+        //guns = new List<GameObject>();
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DropGun(0);
-        }
-
-
-        if(guns.Length > 2)
-        {
-            DropGun(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            if(leftPosition.transform.childCount > 1)
-            {
-                leftPosition.GetChild(0).gameObject.SetActive(true);
-                leftPosition.GetChild(1).gameObject.SetActive(false);
-            }
-            else if (rightPosition.transform.childCount > 1)
-            {
-                rightPosition.GetChild(0).gameObject.SetActive(true);
-                rightPosition.GetChild(1).gameObject.SetActive(false);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if (leftPosition.transform.childCount > 1)
-            {
-                leftPosition.GetChild(1).gameObject.SetActive(true);
-                leftPosition.GetChild(0).gameObject.SetActive(false);
-            }
-            else if (rightPosition.transform.childCount > 1)
-            {
-                rightPosition.GetChild(1).gameObject.SetActive(true);
-                rightPosition.GetChild(0).gameObject.SetActive(false);
-            }
-        }
+        GetInputs();    
+    }   
+    
+    private void GetInputs() {
+        if (Input.GetKeyDown(KeyCode.G)) DropGun();
+        if (Input.GetKeyDown(KeyCode.F)) PickUpGun();
+        //change active gun
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SetActiveGun(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SetActiveGun(1);
     }
 
-    public void DropGun(int index)
+    private void DropGun()
     {
-        Debug.Log("Dropped gun");
-        if(leftPosition.transform.childCount > 0)
+        if (guns.Count < 2) return; // have atleast one gun
+
+        // throw gun
+        guns[activeGunIndex].GetComponent<MeshCollider>().isTrigger = false;
+        guns[activeGunIndex].GetComponent<Transform>().parent = null;
+        guns[activeGunIndex].GetComponent<Rigidbody>().AddForce(playerTransform.forward * 10f + Vector3.up * 10f, ForceMode.Impulse);
+        guns[activeGunIndex].GetComponent<Rigidbody>().useGravity = true;
+        guns[activeGunIndex].GetComponent<Weapon>().isActive = false;
+        guns[activeGunIndex].GetComponent<Animator>().enabled = false;
+        guns.RemoveAt(activeGunIndex);
+        SetActiveGun(guns.Count-1);
+    }
+
+    private void PickUpGun()
+    {
+        //raycast to where camera is looking then pick up gun
+        int gunLayer = 8, layerMask = 1;
+        layerMask = layerMask << gunLayer;
+
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        if(Physics.SphereCast(ray, 3f, out hit, 5f, layerMask))
         {
-            Transform child = leftPosition.transform.GetChild(index);
-            child.parent = null;
-            child.GetComponent<Rigidbody>().useGravity = true;
+            //detected a gun
+            guns.Add(hit.transform.gameObject);
+            SetActiveGun(guns.Count - 1);
+            
+            hit.transform.position = gunPosition.position;
+            hit.transform.SetParent(gunPosition);
+            hit.rigidbody.velocity = Vector3.zero;
+            hit.rigidbody.useGravity = false;
+            hit.transform.localRotation = Quaternion.identity;
+
+            guns[activeGunIndex].GetComponent<MeshCollider>().isTrigger = true;
+            guns[activeGunIndex].GetComponent<Weapon>().isActive = true;
+            guns[activeGunIndex].GetComponent<Animator>().enabled = true;
+
         }
-        if (rightPosition.transform.childCount > 0)
+
+        if (guns.Count > maxGuns)
         {
-            Transform child = rightPosition.transform.GetChild(index);
-            child.parent = null;
-            child.GetComponent<Rigidbody>().useGravity = true;
+            activeGunIndex--;
+            DropGun();
         }
     }
+
+    private void SetActiveGun(int index)
+    {
+        activeGunIndex = index;
+
+        for(int i = 0; i < guns.Count; i++)
+        {
+            guns[i].GetComponent<Weapon>().CancelReload();
+            if (i == activeGunIndex)
+            {
+                guns[i].SetActive(true);
+                guns[i].transform.localPosition = Vector3.zero;
+                guns[i].transform.localRotation = Quaternion.identity;
+                guns[i].GetComponent<Weapon>().enabled = true;
+                continue;
+            }
+            guns[i].GetComponent<Weapon>().enabled = false;
+            guns[i].SetActive(false);
+        }
+
+    }
+
 }
