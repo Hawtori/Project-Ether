@@ -13,7 +13,7 @@ public class WeaponInventory : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> guns;
-    private int activeGunIndex = 0;
+    private int activeGunIndex = 1;
 
     private void Start()
     {
@@ -38,12 +38,15 @@ public class WeaponInventory : MonoBehaviour
         if (guns.Count < 2) return; // have atleast one gun
 
         // throw gun
+        guns[activeGunIndex].GetComponent<Animator>().enabled = false;
+        //guns[activeGunIndex].GetComponent<ReloadOnEmpty>().enabled = false;
+        //guns[activeGunIndex].GetComponent<SoundOnFire>().enabled = false;
         guns[activeGunIndex].GetComponent<MeshCollider>().isTrigger = false;
         guns[activeGunIndex].GetComponent<Transform>().parent = null;
-        guns[activeGunIndex].GetComponent<Rigidbody>().AddForce(playerTransform.forward * 10f + Vector3.up * 10f, ForceMode.Impulse);
         guns[activeGunIndex].GetComponent<Rigidbody>().useGravity = true;
+        guns[activeGunIndex].GetComponent<Rigidbody>().mass = 1f;
+        guns[activeGunIndex].GetComponent<Rigidbody>().AddForce(playerTransform.forward * 10f + Vector3.up * 10f, ForceMode.Impulse);
         guns[activeGunIndex].GetComponent<Weapon>().isActive = false;
-        guns[activeGunIndex].GetComponent<Animator>().enabled = false;
         guns.RemoveAt(activeGunIndex);
         SetActiveGun(guns.Count-1);
     }
@@ -62,7 +65,8 @@ public class WeaponInventory : MonoBehaviour
             //detected a gun
             guns.Add(hit.transform.gameObject);
             SetActiveGun(guns.Count - 1);
-            
+
+            hit.transform.GetComponent<Rigidbody>().isKinematic = false;
             hit.transform.position = gunPosition.position;
             hit.transform.SetParent(gunPosition);
             hit.rigidbody.velocity = Vector3.zero;
@@ -72,6 +76,8 @@ public class WeaponInventory : MonoBehaviour
             guns[activeGunIndex].GetComponent<MeshCollider>().isTrigger = true;
             guns[activeGunIndex].GetComponent<Weapon>().isActive = true;
             guns[activeGunIndex].GetComponent<Animator>().enabled = true;
+            //guns[activeGunIndex].GetComponent<ReloadOnEmpty>().enabled = true;
+            //guns[activeGunIndex].GetComponent<SoundOnFire>().enabled = true;
 
         }
 
@@ -92,8 +98,8 @@ public class WeaponInventory : MonoBehaviour
             if (i == activeGunIndex)
             {
                 guns[i].SetActive(true);
-                guns[i].transform.localPosition = Vector3.zero;
-                guns[i].transform.localRotation = Quaternion.identity;
+                //guns[i].transform.localPosition = Vector3.zero;
+                //guns[i].transform.localRotation = Quaternion.identity;
                 guns[i].GetComponent<Weapon>().enabled = true;
                 continue;
             }

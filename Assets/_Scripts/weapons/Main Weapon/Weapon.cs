@@ -69,7 +69,7 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (!isActive) return;
+        if (!isActive) { Falling(); return; }
         Inputs();
 
         if (ammoDisplay != null)
@@ -145,7 +145,9 @@ public class Weapon : MonoBehaviour
         currBullet.transform.forward = targetDir.normalized;
 
         //add forces
-        currBullet.GetComponent<Rigidbody>().AddForce(targetDir.normalized * shootForce, ForceMode.Impulse);
+        currBullet.GetComponent<Rigidbody>().AddForce(targetDir.normalized * shootForce + transform.up * upwardForce, ForceMode.Impulse);
+        if(upwardForce > 0) currBullet.GetComponent<Rigidbody>().useGravity = true;
+
 
         if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
 
@@ -239,5 +241,17 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
     }
     
+    private void Falling()
+    {
+        if (GetComponent<Rigidbody>().isKinematic) return;
+
+        int ground = 6, layerMask = 1;
+        layerMask = layerMask << ground;
+        
+        if(Physics.Raycast(transform.position, Vector3.down, 1f, layerMask))
+            GetComponent<Rigidbody>().isKinematic = true;
+        
+    }
+
 }
 
