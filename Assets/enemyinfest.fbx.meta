@@ -1,8 +1,11 @@
 fileFormatVersion: 2
 guid: 96522405a95ea7b41b0b6aa0a7a69a88
 ModelImporter:
-  serializedVersion: 22200
-  internalIDToNameTable: []
+  serializedVersion: 22103
+  internalIDToNameTable:
+  - first:
+      74: 9037651362669906998
+    second: Volume13|WalkAnimation
   externalObjects: {}
   materials:
     materialImportMode: 2

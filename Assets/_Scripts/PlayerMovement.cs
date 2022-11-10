@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement _instance { get; set; }
+
     //assignables
     [SerializeField]
     private Transform playerCam;
@@ -11,8 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     //look around
     public float xSens = 40f, ySens = 40f;
+    public float xRotationRecoil = 0;
 
-    private float xRotation, yRotation;
+    public float xRotation, yRotation;
     private float sensMultiplier = 1.3726f;
 
     //move around
@@ -47,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        if (_instance == null) _instance = this;
+        else Destroy(this);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -70,12 +75,13 @@ public class PlayerMovement : MonoBehaviour
         PerformJump();
     }
 
+    //previous check for if grounded
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.gameObject.CompareTag("Ground"))
     //    {
     //        isGrounded = true;
-
+    //
     //        //reset variables
     //        jumping = false;
     //        jumpForceIncrease = 400f;
@@ -83,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     //        jumpTime = 0.2f;
     //    }
     //}
-
+    //
     //private void OnCollisionExit(Collision collision)
     //{
     //    if (collision.gameObject.CompareTag("Ground")) isGrounded = false;
@@ -91,8 +97,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void GetInputs()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        y = Input.GetAxisRaw("Vertical");
+        x = y = 0;
+
+        if (Input.GetKey(KeyCode.W)) y = 1;
+        if (Input.GetKey(KeyCode.S)) y = -1;
+        if (Input.GetKey(KeyCode.A)) x = -1;
+        if (Input.GetKey(KeyCode.D)) x = 1;
+                
         jump = Input.GetButton("Jump");
     }
 
@@ -102,9 +113,7 @@ public class PlayerMovement : MonoBehaviour
         int layerMask = 1;
         layerMask = layerMask << layer;
 
-        //Debug.DrawRay(transform.position, Vector3.down * 3f, Color.magenta, 0.25f);
-
-        if(Physics.Raycast(transform.position, Vector3.down, 3f, layerMask))
+        if(canJump && Physics.Raycast(transform.position, Vector3.down, 3.1f, layerMask))
         {
             isGrounded = true;
 
@@ -130,7 +139,9 @@ public class PlayerMovement : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);
 
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        float totalRotationX = xRotation - xRotationRecoil;
+        totalRotationX = Mathf.Clamp(totalRotationX, -89f, 89f);
+        playerCam.transform.localRotation = Quaternion.Euler(totalRotationX, yRotation, 0);
         rb.MoveRotation(Quaternion.Euler(0, yRotation, 0));
         //transform.localRotation = Quaternion.Euler(0, yRotation, 0);
     }
@@ -139,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canJump && jump) Jump();
 
-        //counter movement
+        //counter movement friction stuff
         float speed = rb.velocity.magnitude;
         if (speed > 0.001f)
         {
@@ -149,12 +160,19 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= dropAmount / speed;
         }
 
-        x = (x/1.41423f) * moveSpeed * speedMultiplier;
-        y = (y/1.41423f) * moveSpeed * speedMultiplier;
+        x = (y == 1 ? x/1.41423f : x) * moveSpeed * speedMultiplier;
+        y = (x == 1 ? y/1.41423f : y) * moveSpeed * speedMultiplier;
 
-        Vector3 forces = transform.forward * y + transform.right * x;
+        Vector3 forces = new Vector3(0, 0, 0);
+        forces = transform.forward * y + transform.right * x;
 
-        rb.AddForce(forces);
+
+        forces = new Vector3(forces.x == float.NaN ? 0 : Mathf.Clamp(forces.x, -200 * speedMultiplier, 200 * speedMultiplier), 
+                             forces.y == float.NaN ? 0 : Mathf.Clamp(forces.y, -200 * speedMultiplier, 200 * speedMultiplier),
+                             forces.z == float.NaN ? 0 : Mathf.Clamp(forces.z, -200 * speedMultiplier, 200 * speedMultiplier));
+        
+        rb.AddForce(forces);        
+
     }
 
     private void Jump()
@@ -200,5 +218,10 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     {
         rb.AddForce(Vector3.down * (gravityAmount / gravityChange));
+    }
+
+    public Vector2 GetMovement()
+    {
+        return new Vector2(x, y);
     }
 }

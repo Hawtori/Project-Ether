@@ -13,7 +13,9 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID EMPTYGUN = 1095758322U;
         static const AkUniqueID GUNSHOT = 1287408361U;
+        static const AkUniqueID RELOAD = 456382354U;
     } // namespace EVENTS
 
     namespace GAME_PARAMETERS
