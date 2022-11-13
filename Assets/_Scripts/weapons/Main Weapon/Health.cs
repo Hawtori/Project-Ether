@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0) Destroy(gameObject);
+        if (health <= 0) Die();
     }
 
     public void TakeDamage(float d)
@@ -34,5 +34,10 @@ public class Health : MonoBehaviour
     {
         takingDamage = false;
         GetComponent<Renderer>().material.color = initColor;
+    }
+
+    private void Die()
+    {
+        EnemyPool._instance.ReturnEnemy(gameObject);
     }
 }
