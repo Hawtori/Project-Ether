@@ -504,7 +504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &778497420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +619,7 @@ GameObject:
   - component: {fileID: 945079375}
   - component: {fileID: 945079374}
   - component: {fileID: 945079378}
+  - component: {fileID: 945079379}
   m_Layer: 0
   m_Name: Trigger 1
   m_TagString: Untagged
@@ -719,12 +720,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945079373}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21e6f0ab89478c04ca0d500e09905f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToSpawn: 15
+  enemiesToSpawn: 24
+  bound1: {x: 30, y: 6, z: 110}
+  bound2: {x: -8, y: 6, z: 125}
+--- !u!114 &945079379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945079373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c20f46e75243764fa03c6c604d0be70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesToSpawn: 24
+  enemy: {fileID: 8897141572805377052, guid: ffaedc47902551e4295df0c4fd4f781e, type: 3}
   bound1: {x: 30, y: 6, z: 110}
   bound2: {x: -8, y: 6, z: 125}
 --- !u!1001 &950902255
