@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WeaponInventory : MonoBehaviour
 {
-    public static WeaponInventory _instance { get; set; }
-
     public Camera cam;
     public Transform playerTransform;
     public Transform gunPosition;
@@ -14,6 +12,8 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField]
     private List<GameObject> guns;
     private int activeGunIndex = 1;
+
+    public PlayerMovement player;
 
     private void Start()
     {
@@ -46,6 +46,7 @@ public class WeaponInventory : MonoBehaviour
         guns[activeGunIndex].GetComponent<Rigidbody>().useGravity = true;
         guns[activeGunIndex].GetComponent<Rigidbody>().mass = 1f;
         guns[activeGunIndex].GetComponent<Rigidbody>().AddForce(playerTransform.forward * 10f + Vector3.up * 10f, ForceMode.Impulse);
+        guns[activeGunIndex].GetComponent<Weapon>().playerReference = null;
         guns[activeGunIndex].GetComponent<Weapon>().isActive = false;
         guns.RemoveAt(activeGunIndex);
         SetActiveGun(guns.Count-1);
@@ -74,6 +75,7 @@ public class WeaponInventory : MonoBehaviour
             hit.transform.localRotation = Quaternion.identity;
 
             guns[activeGunIndex].GetComponent<MeshCollider>().isTrigger = true;
+            guns[activeGunIndex].GetComponent<Weapon>().playerReference = player;
             guns[activeGunIndex].GetComponent<Weapon>().isActive = true;
             guns[activeGunIndex].GetComponent<Animator>().enabled = true;
             //guns[activeGunIndex].GetComponent<ReloadOnEmpty>().enabled = true;

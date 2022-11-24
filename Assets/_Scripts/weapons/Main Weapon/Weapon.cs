@@ -45,6 +45,8 @@ public class Weapon : MonoBehaviour
     //animations
     private Animator anim;
 
+    public PlayerMovement playerReference;
+
     private float LerpF(float a, float b, float t)
     {
         return a + (b - a) * t;
@@ -118,8 +120,8 @@ public class Weapon : MonoBehaviour
 
             spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
             resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
-            //float xRot = PlayerMovement._instance.xRotation;
-            PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
+            //float xRot = playerReference.xRotation;
+            playerReference.xRotationRecoil = spreadIncreaseY;
         }
     #endregion
 
@@ -176,9 +178,9 @@ public class Weapon : MonoBehaviour
 
             spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
             resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
-            //float xRot = PlayerMovement._instance.xRotation;
-            PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
-            //PlayerMovement._instance.xRotation = LerpF(xRot-spreadIncreaseY, xRot, resetSpreadTime);
+            //float xRot = playerReference.xRotation;
+            playerReference.xRotationRecoil = spreadIncreaseY;
+            //playerReference.xRotation = LerpF(xRot-spreadIncreaseY, xRot, resetSpreadTime);
             return;
         }
 
@@ -200,8 +202,8 @@ public class Weapon : MonoBehaviour
 
         spreadIncreaseY = Mathf.Clamp(spreadIncreaseY, 0, 18f);
         resetSpreadTime = Mathf.Clamp(resetSpreadTime, 0, 1f);
-        float xRot = PlayerMovement._instance.xRotation;
-        PlayerMovement._instance.xRotationRecoil = spreadIncreaseY;
+        float xRot = playerReference.xRotation;
+        playerReference.xRotationRecoil = spreadIncreaseY;
     }
 
     private void ResetShot()

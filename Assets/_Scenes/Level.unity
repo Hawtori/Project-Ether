@@ -2421,6 +2421,7 @@ MonoBehaviour:
   nuzzle: {fileID: 1763632355}
   nuzzleFlash: {fileID: 0}
   ammoDisplay: {fileID: 547347234}
+  playerReference: {fileID: 1525895146}
 --- !u!54 &1269179209
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2643,6 +2644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1337565755}
+  - component: {fileID: 1337565756}
   m_Layer: 0
   m_Name: ===Extras===
   m_TagString: Untagged
@@ -2667,6 +2669,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1337565756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337565754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a215c7a71d60e494ab3de46b9563ff51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1357470499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8900554369121600992, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
@@ -3147,6 +3161,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 630698175}
     - target: {fileID: 8900554368786072687, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1525895146}
+    - target: {fileID: 8900554368786072687, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
       propertyPath: maxGuns
       value: 2
       objectReference: {fileID: 0}
@@ -3254,6 +3272,10 @@ PrefabInstance:
       propertyPath: recoilForce
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8900554369649450442, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
+      propertyPath: playerReference
+      value: 
+      objectReference: {fileID: 1525895146}
     - target: {fileID: 8900554369649450442, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
       propertyPath: timeBetweenShooting
       value: 0.15
@@ -3418,6 +3440,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1525895146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8900554369121600995, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
+  m_PrefabInstance: {fileID: 1525895141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eaca21d531d59d4cb38ba73e9f5e8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1525895147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8939546819576813777, guid: 93e390fa8e7dc6f4d976d749d6796043, type: 3}
@@ -3931,6 +3964,7 @@ MonoBehaviour:
   nuzzle: {fileID: 132060390}
   nuzzleFlash: {fileID: 0}
   ammoDisplay: {fileID: 547347234}
+  playerReference: {fileID: 0}
 --- !u!64 &1806155726
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4309,6 +4343,7 @@ MonoBehaviour:
   nuzzle: {fileID: 852035995}
   nuzzleFlash: {fileID: 0}
   ammoDisplay: {fileID: 547347234}
+  playerReference: {fileID: 0}
 --- !u!64 &1866748418
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class SpawnCompare : MonoBehaviour
 
     private void Start()
     {
+        return;
         locationToSpawnEnemies = new Vector3[enemiesToSpawn];
 
         Vector3 pos;
@@ -31,6 +32,7 @@ public class SpawnCompare : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) //spawner
     {
+        return;
         if (other.CompareTag("Player"))
         {
             for (int i = 0; i < enemiesToSpawn; i++)
