@@ -11,7 +11,6 @@ TagManager:
   - BatteryPort
   - PickUp
   - CanPickUp
-  - Battery
   layers:
   - Default
   - TransparentFX
@@ -24,7 +23,7 @@ TagManager:
   - Gun
   - 
   - PickUp
-  - 
+  - HoldLayer
   - 
   - 
   - 
