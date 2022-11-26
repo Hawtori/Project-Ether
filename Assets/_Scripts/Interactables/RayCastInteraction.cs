@@ -1,3 +1,15 @@
+/*
+ * REDO THIS WITH VIDEO FROM: https://www.youtube.com/watch?v=zgCV26yFAiU
+ * 
+ * My own implementation is really down bad 
+ * 
+ * Modify it to be tagged based still
+ * 
+ */
+
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +31,8 @@ public class RayCastInteraction : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 4.0f)){
-            Debug.Log(hit.collider.gameObject.name);
+        if (Physics.Raycast(ray, out hit, 6.0f)){
+           // Debug.Log(hit.collider.gameObject.name);
             Debug.DrawLine(ray.origin, hit.point, new Color(25,25,0));
             lastHit = hit.collider.gameObject;
             lastCollide = hit.point;
@@ -48,7 +60,7 @@ public class RayCastInteraction : MonoBehaviour
     //Must have rigidbody and physics tag
     void rayCastItems()
     {
-        if (lastHit.tag == "PhysicsItem" && Input.GetKeyDown(KeyCode.E))
+        if (lastHit.tag == "PhysicsItem" && Input.GetKeyDown(KeyCode.V))
         {
 
             heldObject = lastHit;
@@ -62,11 +74,13 @@ public class RayCastInteraction : MonoBehaviour
             heldObject.transform.position = pickupTransform.transform.position;
         //    heldObject.GetComponent<Rigidbody>().useGravity = false;
             heldObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            heldObject.GetComponent<Collider>().enabled = false;
         }
         else
         {
             heldObject.GetComponent<Rigidbody>().useGravity = true;
-           
+            heldObject.GetComponent<Collider>().enabled = true;
+
         }
 
     }
@@ -80,6 +94,7 @@ public class RayCastInteraction : MonoBehaviour
         lastHit = new GameObject("TempLastHit");
         heldObject = new GameObject("TempHeldObject");
         heldObject.AddComponent<Rigidbody>();
+        heldObject.AddComponent<Collider>(); 
     }
 
     // Update is called once per frame
