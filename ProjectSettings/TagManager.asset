@@ -8,6 +8,9 @@ TagManager:
   - PhysicsItem
   - Button
   - Door
+  - BatteryPort
+  - PickUp
+  - CanPickUp
   layers:
   - Default
   - TransparentFX
@@ -19,8 +22,8 @@ TagManager:
   - Target
   - Gun
   - 
-  - 
-  - 
+  - PickUp
+  - HoldLayer
   - 
   - 
   - 
