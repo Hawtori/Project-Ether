@@ -1,0 +1,13 @@
+Event	ID	Name			Wwise Object Path	Notes
+	456382354	Reload			\Default Work Unit\Main Gun Noises\Reload	
+	1095758322	EmptyGun			\Default Work Unit\Main Gun Noises\EmptyGun	
+	1287408361	GunShot			\Default Work Unit\Main Gun Noises\GunShot	
+
+Effect plug-ins	ID	Name	Type				Notes
+	1008402193	Low_Pass_20KHz	Wwise Parametric EQ			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	324332427	GunShot	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\mixkit-short-laser-gun-shot-1670_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\GunShot		163328
+	487548086	Reload	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\mag-reload-81594_9A0A74EC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\Reload		141226
+	821363666	EmptyGun	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\rifle-clip-empty-98832_0E2E5CFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\EmptyGun		46974
+
