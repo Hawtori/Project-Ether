@@ -6,7 +6,7 @@ using UnityEngine;
 public class SoundOnFire : MonoBehaviour
 {
 
-    public AK.Wwise.Event gunShot;
+    public AK.Wwise.Event GunShot;
 
     Weapon _weapon = null;
 
@@ -28,9 +28,9 @@ public class SoundOnFire : MonoBehaviour
 
     void OnFire()
     {
-        if (gunShot != null)
+        if (GunShot != null)
         {
-            gunShot.Post(gameObject);
+            GunShot.Post(gameObject);
         }
     }
 

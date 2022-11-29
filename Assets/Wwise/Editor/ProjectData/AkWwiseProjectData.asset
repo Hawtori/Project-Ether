@@ -345,7 +345,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 48262e4ee47410488fcf78f55056bc2e
     GuidInternal: 
-    m_lastTime: -8585353598427921369
+    m_lastTime: -8585352946389075619
     List:
     - name: Main
       guid: a44614dec143d5428c52c75a894f8d9f
@@ -373,8 +373,28 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: b6c6316a6e323a47b7c5c965d5847417
     GuidInternal: 
-    m_lastTime: -8585353598428066393
+    m_lastTime: -8585352946388935594
     List:
+    - name: EmptyGun
+      guid: 20ceceac3e6ae640a3c2339f9a313397
+      id: 1095758322
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Main Gun Noises
+        ObjectType: 4
+        guid: 2c13af54132b8346b11a2132518302be
+      - ElementName: EmptyGun
+        ObjectType: 3
+        guid: 20ceceac3e6ae640a3c2339f9a313397
+      Path: Events\Default Work Unit\Main Gun Noises\EmptyGun
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: GunShot
       guid: 3451b0a696c80749afdd658bfe3077fb
       id: 1287408361
@@ -385,10 +405,50 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Main Gun Noises
+        ObjectType: 4
+        guid: 2c13af54132b8346b11a2132518302be
       - ElementName: GunShot
         ObjectType: 3
         guid: 3451b0a696c80749afdd658bfe3077fb
-      Path: Events\Default Work Unit\GunShot
+      Path: Events\Default Work Unit\Main Gun Noises\GunShot
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Main Gun Noises
+      guid: 2c13af54132b8346b11a2132518302be
+      id: 2179500233
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Main Gun Noises
+        ObjectType: 4
+        guid: 2c13af54132b8346b11a2132518302be
+      Path: Events\Default Work Unit\Main Gun Noises
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Reload
+      guid: e826c190dc082a40a249bd06e7e2c966
+      id: 456382354
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Main Gun Noises
+        ObjectType: 4
+        guid: 2c13af54132b8346b11a2132518302be
+      - ElementName: Reload
+        ObjectType: 3
+        guid: e826c190dc082a40a249bd06e7e2c966
+      Path: Events\Default Work Unit\Main Gun Noises\Reload
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -643,7 +703,7 @@ MonoBehaviour:
     m_lastTime: -8585353613801013043
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0600000007000000080000000b0000000c000000220000002300000026000000
+  ExpandedWaapiItemIds: 01000000060000000700000008000000090000000b0000000c0000000d000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
