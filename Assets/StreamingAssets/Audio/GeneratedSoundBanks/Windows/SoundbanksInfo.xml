@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="144">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
 	<RootPaths>
-		<ProjectRoot>../../../../../../../Documents/WwiseProjects/ProjectEther</ProjectRoot>
-		<SourceFilesRoot>../../../../../../../Documents/WwiseProjects/ProjectEther/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>../../../../../../../Documents/WwiseProjects/ProjectEther/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{D10CD12A-FF6E-3210-BC00-9D4BF7650C89}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{8161723C-6013-181C-D5D9-9982915174B4}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -152,7 +152,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{6B084E0C-185A-BA88-3D05-1452A32DB760}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F61A617F-7362-1878-C470-32664C9DFF12}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -160,15 +160,43 @@
 					<ShortName>mixkit-short-laser-gun-shot-1670.wav</ShortName>
 					<CachePath>SFX/mixkit-short-laser-gun-shot-1670_10C4C929.wem</CachePath>
 				</File>
+				<File Id="487548086" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>mag-reload-81594.wav</ShortName>
+					<CachePath>SFX/mag-reload-81594_9A0A74EC.wem</CachePath>
+				</File>
+				<File Id="821363666" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>rifle-clip-empty-98832.wav</ShortName>
+					<CachePath>SFX/rifle-clip-empty-98832_0E2E5CFB.wem</CachePath>
+				</File>
 			</Media>
+			<Plugins>
+				<ShareSets>
+					<Plugin Id="1008402193" Name="Low_Pass_20KHz" LibName="Wwise Parametric EQ" LibId="6881283"/>
+				</ShareSets>
+			</Plugins>
 			<Events>
+				<Event Id="1095758322" Name="EmptyGun" DurationType="OneShot" DurationMin="0.53149796" DurationMax="0.53149796">
+					<MediaRefs>
+						<MediaRef Id="821363666"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1287408361" Name="GunShot" DurationType="OneShot" DurationMin="0.9249887" DurationMax="0.9249887">
 					<MediaRefs>
 						<MediaRef Id="324332427"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="456382354" Name="Reload" DurationType="OneShot" DurationMin="1.600128" DurationMax="1.600128">
+					<MediaRefs>
+						<MediaRef Id="487548086"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="1008402193"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{D721CEE5-0E03-DCBB-BA90-81227D31F424}</FileHash>
+	<FileHash>{02893B61-BE30-2777-ACC3-06F09C5D5C40}</FileHash>
 </SoundBanksInfo>
