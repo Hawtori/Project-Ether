@@ -12,6 +12,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System; //Find specific import for arrays
 using UnityEngine;
 
 public class RayCastInteraction : MonoBehaviour
@@ -23,7 +24,13 @@ public class RayCastInteraction : MonoBehaviour
     public GameObject pickupTransform;
     public bool HoldingItem = false;
     public GameObject heldObject;
-    
+
+    public GameObject ButtonOne, ButtonTwo, ButtonThree;
+
+    public int[] sequenceArr = { 1, 2, 3, 1, 2, 3 };
+    public int[] guessArr;
+    private int guessIncrement = 0;
+
     //Last hit needs to be cleared after X time or after X happens because its stored and can be fired from afar
     void rayCasting()
     {
@@ -38,6 +45,44 @@ public class RayCastInteraction : MonoBehaviour
             lastCollide = hit.point;
           
         }
+
+    }
+
+    void raycastThreeButton()
+    {
+
+
+        //Future sight possible issues. To many update frames adding to many index per 1 interact. Solution delta time timer?
+
+        //Use raycast + E to interact.
+
+        //Button 1
+        if (lastHit.transform.name == "Button1" && Input.GetKeyDown(KeyCode.E))
+        {
+            //Add an index to guessArr with number 1
+            print(lastHit.transform.name);
+
+
+            Array.Reverse(sequenceArr); 
+        }
+
+        //Button 3
+        if (lastHit.transform.name == "Button2" && Input.GetKeyDown(KeyCode.E))
+        {
+            //Add an index to guessArr with number 2
+            print(lastHit.transform.name);
+           
+        }
+
+        //Button 3
+        if (lastHit.transform.name == "Button3" && Input.GetKeyDown(KeyCode.E)) 
+        {
+            //Add an index to guessArr with number 3
+            print(lastHit.transform.name);
+          
+        }
+
+
 
     }
 
@@ -103,6 +148,7 @@ public class RayCastInteraction : MonoBehaviour
 
         rayCasting();
         rayCastDoor();
-        rayCastItems();
+      //  rayCastItems();
+        raycastThreeButton();
     }
 }

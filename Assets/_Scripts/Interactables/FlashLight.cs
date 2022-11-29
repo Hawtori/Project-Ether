@@ -32,7 +32,7 @@ public class FlashLight : MonoBehaviour
         if (flashLight.GetComponent<Light>().enabled)
         {
             onDuration += Time.deltaTime;
-            print("On duration: " + onDuration);
+           // print("On duration: " + onDuration);
         }
 
         if(onDuration > maxDuration)
