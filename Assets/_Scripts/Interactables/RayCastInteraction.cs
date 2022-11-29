@@ -12,7 +12,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System; //Find specific import for arrays
+//using System; //Find specific import for arrays
 using UnityEngine;
 
 public class RayCastInteraction : MonoBehaviour
@@ -63,7 +63,7 @@ public class RayCastInteraction : MonoBehaviour
             print(lastHit.transform.name);
 
 
-            Array.Reverse(sequenceArr); 
+          //  Array.Reverse(sequenceArr); 
         }
 
         //Button 3
