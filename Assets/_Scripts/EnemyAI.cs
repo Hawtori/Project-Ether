@@ -43,10 +43,7 @@ public class EnemyAI : MonoBehaviour
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
-        {
             agent.SetDestination(walkPoint);
-            transform.LookAt(walkPoint);
-        }
 
         Vector3 disToWalkPoint = transform.position - walkPoint;
 
@@ -98,6 +95,5 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRadius);
-        Gizmos.DrawRay(transform.position, transform.forward * 4f);
     }
 }
