@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5239ecc2312a54a4cb464a61094376f8, type: 3}
-  m_Name: DE1446A4-43C1-42D5-8C52-C75A894F8D9F
+  m_Script: {fileID: 11500000, guid: 347f54dc823f03e4d940a28ba36f4baf, type: 3}
+  m_Name: E7950014-1838-4DAF-AD03-FF0723491D52
   m_EditorClassIdentifier: 
-  objectName: SB_Main
-  id: 152968626
-  guid: DE1446A4-43C1-42D5-8C52-C75A894F8D9F
+  objectName: SoundState
+  id: 3813552729
+  guid: E7950014-1838-4DAF-AD03-FF0723491D52
