@@ -15,38 +15,8 @@ namespace AK
     {
         static const AkUniqueID EMPTYGUN = 1095758322U;
         static const AkUniqueID GUNSHOT = 1287408361U;
-        static const AkUniqueID PLAY_SOUND_MAIN = 347371133U;
         static const AkUniqueID RELOAD = 456382354U;
-        static const AkUniqueID STOP_SOUND_MAIN = 3284699527U;
     } // namespace EVENTS
-
-    namespace STATES
-    {
-        namespace GAMESTATE
-        {
-            static const AkUniqueID GROUP = 4091656514U;
-
-            namespace STATE
-            {
-                static const AkUniqueID MAINMENU = 3604647259U;
-                static const AkUniqueID NONE = 748895195U;
-                static const AkUniqueID PAUSEMENU = 3494343696U;
-            } // namespace STATE
-        } // namespace GAMESTATE
-
-        namespace SOUNDSTATE
-        {
-            static const AkUniqueID GROUP = 3813552729U;
-
-            namespace STATE
-            {
-                static const AkUniqueID MAINMENU = 3604647259U;
-                static const AkUniqueID NONE = 748895195U;
-                static const AkUniqueID PAUSEMENU = 3494343696U;
-            } // namespace STATE
-        } // namespace SOUNDSTATE
-
-    } // namespace STATES
 
     namespace GAME_PARAMETERS
     {
@@ -67,13 +37,13 @@ namespace AK
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID SB_MAIN = 152968626U;
+        static const AkUniqueID MAIN = 3161908922U;
     } // namespace BANKS
 
     namespace BUSSES
     {
-        static const AkUniqueID AUDIO = 1069811801U;
-        static const AkUniqueID MASTER_AUDIO = 4157353401U;
+        static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
+        static const AkUniqueID MOTION_FACTORY_BUS = 985987111U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES
