@@ -9,7 +9,86 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{8161723C-6013-181C-D5D9-9982915174B4}">
+		<SoundBank Id="152968626" Type="User" Language="SFX" Hash="{5FAA947D-F82F-65A9-EF64-F1A6FFCB836F}">
+			<ShortName>SB_Main</ShortName>
+			<Path>SB_Main.bnk</Path>
+			<Media>
+				<File Id="14464977" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MainMenu.wav</ShortName>
+					<CachePath>SFX/MainMenu_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="57408676" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PauseMenu.wav</ShortName>
+					<CachePath>SFX/PauseMenu_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="324332427" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>mixkit-short-laser-gun-shot-1670.wav</ShortName>
+					<CachePath>SFX/mixkit-short-laser-gun-shot-1670_10C4C929.wem</CachePath>
+				</File>
+				<File Id="487548086" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>mag-reload-81594.wav</ShortName>
+					<CachePath>SFX/mag-reload-81594_9A0A74EC.wem</CachePath>
+				</File>
+				<File Id="821363666" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>rifle-clip-empty-98832.wav</ShortName>
+					<CachePath>SFX/rifle-clip-empty-98832_0E2E5CFB.wem</CachePath>
+				</File>
+			</Media>
+			<Plugins>
+				<ShareSets>
+					<Plugin Id="1008402193" Name="Low_Pass_20KHz" LibName="Wwise Parametric EQ" LibId="6881283"/>
+				</ShareSets>
+			</Plugins>
+			<Events>
+				<Event Id="1095758322" Name="EmptyGun" DurationType="OneShot" DurationMin="0.53149796" DurationMax="0.53149796">
+					<MediaRefs>
+						<MediaRef Id="821363666"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1287408361" Name="GunShot" DurationType="OneShot" DurationMin="0.9249887" DurationMax="0.9249887">
+					<MediaRefs>
+						<MediaRef Id="324332427"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="347371133" Name="Play_Sound_Main" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3813552729" Id="3604647259"/>
+							<MediaRefs>
+								<MediaRef Id="14464977"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3813552729" Id="3494343696"/>
+							<MediaRefs>
+								<MediaRef Id="57408676"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="456382354" Name="Reload" DurationType="OneShot" DurationMin="1.600128" DurationMax="1.600128">
+					<MediaRefs>
+						<MediaRef Id="487548086"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="1008402193"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
+				<Event Id="3284699527" Name="Stop_Sound_Main" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+			</Events>
+			<StateGroups>
+				<StateGroup Id="3813552729" Name="SoundState">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="3494343696" Name="PauseMenu"/>
+						<State Id="3604647259" Name="MainMenu"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{10D34C33-FC40-4794-EADD-A61521FD0EF9}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -20,8 +99,8 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
-				<Bus Id="985987111" Name="Motion Factory Bus"/>
-				<Bus Id="3803692087" Name="Master Audio Bus"/>
+				<Bus Id="1069811801" Name="Audio"/>
+				<Bus Id="4157353401" Name="Master Audio"/>
 			</Busses>
 			<GameParameters>
 				<GameParameter Id="796049864" Name="RPM"/>
@@ -37,6 +116,22 @@
 				<GameParameter Id="3847924954" Name="SS_Air_Presence"/>
 				<GameParameter Id="4160247818" Name="SS_Air_Turbulence"/>
 			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="3813552729" Name="SoundState">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="3494343696" Name="PauseMenu"/>
+						<State Id="3604647259" Name="MainMenu"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="4091656514" Name="GameState">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="3494343696" Name="PauseMenu"/>
+						<State Id="3604647259" Name="MainMenu"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
 			<AcousticTextures>
 				<AcousticTexture Id="504532776" Name="Brick">
 					<Properties>
@@ -152,51 +247,6 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F61A617F-7362-1878-C470-32664C9DFF12}">
-			<ShortName>Main</ShortName>
-			<Path>Main.bnk</Path>
-			<Media>
-				<File Id="324332427" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>mixkit-short-laser-gun-shot-1670.wav</ShortName>
-					<CachePath>SFX/mixkit-short-laser-gun-shot-1670_10C4C929.wem</CachePath>
-				</File>
-				<File Id="487548086" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>mag-reload-81594.wav</ShortName>
-					<CachePath>SFX/mag-reload-81594_9A0A74EC.wem</CachePath>
-				</File>
-				<File Id="821363666" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>rifle-clip-empty-98832.wav</ShortName>
-					<CachePath>SFX/rifle-clip-empty-98832_0E2E5CFB.wem</CachePath>
-				</File>
-			</Media>
-			<Plugins>
-				<ShareSets>
-					<Plugin Id="1008402193" Name="Low_Pass_20KHz" LibName="Wwise Parametric EQ" LibId="6881283"/>
-				</ShareSets>
-			</Plugins>
-			<Events>
-				<Event Id="1095758322" Name="EmptyGun" DurationType="OneShot" DurationMin="0.53149796" DurationMax="0.53149796">
-					<MediaRefs>
-						<MediaRef Id="821363666"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="1287408361" Name="GunShot" DurationType="OneShot" DurationMin="0.9249887" DurationMax="0.9249887">
-					<MediaRefs>
-						<MediaRef Id="324332427"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="456382354" Name="Reload" DurationType="OneShot" DurationMin="1.600128" DurationMax="1.600128">
-					<MediaRefs>
-						<MediaRef Id="487548086"/>
-					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1008402193"/>
-						</ShareSets>
-					</PluginRefs>
-				</Event>
-			</Events>
-		</SoundBank>
 	</SoundBanks>
-	<FileHash>{02893B61-BE30-2777-ACC3-06F09C5D5C40}</FileHash>
+	<FileHash>{E387D944-5653-E3A3-89D9-A65ED41F09DE}</FileHash>
 </SoundBanksInfo>
