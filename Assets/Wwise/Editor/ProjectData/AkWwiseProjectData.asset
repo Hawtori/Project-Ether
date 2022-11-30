@@ -303,11 +303,11 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: e824ebdd0fbbb448afc173e0f33a60f0
     GuidInternal: 
-    m_lastTime: -8585353613803433463
+    m_lastTime: -8585318363305513245
     List:
-    - name: Master Audio Bus
-      guid: d8a41415a61d2a41a17e75ca0c2149f3
-      id: 3803692087
+    - name: Audio
+      guid: c4dc91a9d23d0445838de0bac8ba9bd6
+      id: 1069811801
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -315,13 +315,16 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: e824ebdd0fbbb448afc173e0f33a60f0
-      - ElementName: Master Audio Bus
+      - ElementName: Master Audio
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
-      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus
-    - name: Motion Factory Bus
-      guid: c6b9f92af16ee946b5f2e30c9e602c74
-      id: 985987111
+      - ElementName: Audio
+        ObjectType: 2
+        guid: c4dc91a9d23d0445838de0bac8ba9bd6
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio\Audio
+    - name: Master Audio
+      guid: d8a41415a61d2a41a17e75ca0c2149f3
+      id: 4157353401
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -329,10 +332,10 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: e824ebdd0fbbb448afc173e0f33a60f0
-      - ElementName: Motion Factory Bus
+      - ElementName: Master Audio
         ObjectType: 2
-        guid: c6b9f92af16ee946b5f2e30c9e602c74
-      Path: Master-Mixer Hierarchy\Default Work Unit\Motion Factory Bus
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     PathAndIcons:
@@ -345,11 +348,11 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 48262e4ee47410488fcf78f55056bc2e
     GuidInternal: 
-    m_lastTime: -8585352946389075619
+    m_lastTime: -8585318349950608311
     List:
-    - name: Main
+    - name: SB_Main
       guid: a44614dec143d5428c52c75a894f8d9f
-      id: 3161908922
+      id: 152968626
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -357,10 +360,10 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 48262e4ee47410488fcf78f55056bc2e
-      - ElementName: Main
+      - ElementName: SB_Main
         ObjectType: 7
         guid: a44614dec143d5428c52c75a894f8d9f
-      Path: SoundBanks\Default Work Unit\Main
+      Path: SoundBanks\Default Work Unit\SB_Main
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -373,7 +376,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: b6c6316a6e323a47b7c5c965d5847417
     GuidInternal: 
-    m_lastTime: -8585352946388935594
+    m_lastTime: -8585318358256254655
     List:
     - name: EmptyGun
       guid: 20ceceac3e6ae640a3c2339f9a313397
@@ -432,6 +435,40 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Sound_Main
+      guid: 25bf1aec6f1a694484f3e28f175426b1
+      id: 347371133
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Play_Sound_Main
+        ObjectType: 3
+        guid: 25bf1aec6f1a694484f3e28f175426b1
+      Path: Events\Default Work Unit\Play_Sound_Main
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: PlayAudio
+      guid: 78576a4e9055a24a9142fb79a17e584f
+      id: 2268316875
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: PlayAudio
+        ObjectType: 4
+        guid: 78576a4e9055a24a9142fb79a17e584f
+      Path: Events\Default Work Unit\PlayAudio
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Reload
       guid: e826c190dc082a40a249bd06e7e2c966
       id: 456382354
@@ -449,6 +486,23 @@ MonoBehaviour:
         ObjectType: 3
         guid: e826c190dc082a40a249bd06e7e2c966
       Path: Events\Default Work Unit\Main Gun Noises\Reload
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_Sound_Main
+      guid: 759811cca0f2ed4fa983a76f76bd6b1c
+      id: 3284699527
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6c6316a6e323a47b7c5c965d5847417
+      - ElementName: Stop_Sound_Main
+        ObjectType: 3
+        guid: 759811cca0f2ed4fa983a76f76bd6b1c
+      Path: Events\Default Work Unit\Stop_Sound_Main
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -672,8 +726,140 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: e897a04a6af0b14d924f7493f7fd6f3c
     GuidInternal: 
-    m_lastTime: -8585353613802073231
-    List: []
+    m_lastTime: -8585318363305403228
+    List:
+    - name: GameState
+      guid: 903eec1beff35f4b9afac2c250614d30
+      id: 4091656514
+      PathAndIcons:
+      - ElementName: States
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e897a04a6af0b14d924f7493f7fd6f3c
+      - ElementName: GameState
+        ObjectType: 9
+        guid: 903eec1beff35f4b9afac2c250614d30
+      Path: States\Default Work Unit\GameState
+      values:
+      - name: MainMenu
+        guid: 3ca3eafff5075b43b183965bcd261a94
+        id: 3604647259
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: GameState
+          ObjectType: 9
+          guid: 903eec1beff35f4b9afac2c250614d30
+        - ElementName: MainMenu
+          ObjectType: 8
+          guid: 3ca3eafff5075b43b183965bcd261a94
+      - name: None
+        guid: 4d0bee72eb041a458da77a1e5ef16d37
+        id: 748895195
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: GameState
+          ObjectType: 9
+          guid: 903eec1beff35f4b9afac2c250614d30
+        - ElementName: None
+          ObjectType: 8
+          guid: 4d0bee72eb041a458da77a1e5ef16d37
+      - name: PauseMenu
+        guid: fe731c4d8d278241b9826b9801f6a7ca
+        id: 3494343696
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: GameState
+          ObjectType: 9
+          guid: 903eec1beff35f4b9afac2c250614d30
+        - ElementName: PauseMenu
+          ObjectType: 8
+          guid: fe731c4d8d278241b9826b9801f6a7ca
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+    - name: SoundState
+      guid: 140095e73818af4dad03ff0723491d52
+      id: 3813552729
+      PathAndIcons:
+      - ElementName: States
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e897a04a6af0b14d924f7493f7fd6f3c
+      - ElementName: SoundState
+        ObjectType: 9
+        guid: 140095e73818af4dad03ff0723491d52
+      Path: States\Default Work Unit\SoundState
+      values:
+      - name: MainMenu
+        guid: 2c43fe41f85d7c40a96ed50d62e88db5
+        id: 3604647259
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: SoundState
+          ObjectType: 9
+          guid: 140095e73818af4dad03ff0723491d52
+        - ElementName: MainMenu
+          ObjectType: 8
+          guid: 2c43fe41f85d7c40a96ed50d62e88db5
+      - name: None
+        guid: 6858066851b93340b8de2625b8c51b7c
+        id: 748895195
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: SoundState
+          ObjectType: 9
+          guid: 140095e73818af4dad03ff0723491d52
+        - ElementName: None
+          ObjectType: 8
+          guid: 6858066851b93340b8de2625b8c51b7c
+      - name: PauseMenu
+        guid: 03270035f42d574e94d296e71ba58237
+        id: 3494343696
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e897a04a6af0b14d924f7493f7fd6f3c
+        - ElementName: SoundState
+          ObjectType: 9
+          guid: 140095e73818af4dad03ff0723491d52
+        - ElementName: PauseMenu
+          ObjectType: 8
+          guid: 03270035f42d574e94d296e71ba58237
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     PathAndIcons:
@@ -703,7 +889,7 @@ MonoBehaviour:
     m_lastTime: -8585353613801013043
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0700000008000000090000000c0000000d000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000b0000000c0000000d0000000e0000000f0000001000000033000000340000003500000055000000560000005700000058000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
