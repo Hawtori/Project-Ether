@@ -19,8 +19,8 @@ public class Health : MonoBehaviour
     private void Update()
     {
         if (health <= 0)
-            //Die();
-            DieInefficient();
+            Die();
+            //DieInefficient();
     }
 
     public void TakeDamage(float d)

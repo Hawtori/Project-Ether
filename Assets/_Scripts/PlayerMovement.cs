@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     //look around
-    public float xSens = 40f, ySens = 40f;
+    public float xSens = 90f, ySens = 90f;
     public float xRotationRecoil = 0;
 
     public float xRotation, yRotation;
@@ -57,6 +57,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (!PlayerPrefs.HasKey("xSens")) return;
+        xSens = PlayerPrefs.GetFloat("xSens");
+        ySens = PlayerPrefs.GetFloat("ySens");
     }
 
     private void Update()
