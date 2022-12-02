@@ -20,8 +20,12 @@ public class BatteryPort : MonoBehaviour
         if (other.tag == "Battery")
         {
             Debug.Log("BATTERY INSTALLED");
-            itemToActivate.GetComponent<Renderer>().material.color = Color.green;
-            itemToActivate.transform.position = itemToActivate.transform.position + new Vector3(0, 8, 0);
+            //itemToActivate.GetComponent<Renderer>().material.color = Color.green;
+            // itemToActivate.transform.position = itemToActivate.transform.position + new Vector3(0, 8, 0);
+
+            //Win State
+            itemToActivate.SetActive(true);
+            Time.timeScale = 0;
         }
 
    

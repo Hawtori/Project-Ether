@@ -12,6 +12,7 @@ TagManager:
   - PickUp
   - CanPickUp
   - Battery
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - postprocessing
   - 
   - 
   - 
