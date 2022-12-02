@@ -12,7 +12,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
-//using System; //Find specific import for arrays
+using System; //Find specific import for arrays
 using UnityEngine;
 
 public class RayCastInteraction : MonoBehaviour
@@ -25,11 +25,14 @@ public class RayCastInteraction : MonoBehaviour
     public bool HoldingItem = false;
     public GameObject heldObject;
 
-    public GameObject ButtonOne, ButtonTwo, ButtonThree;
+    public GameObject ButtonOne, ButtonTwo, ButtonThree, purpledoor;
 
-    public int[] sequenceArr = { 1, 2, 3, 1, 2, 3 };
-    public int[] guessArr;
-    private int guessIncrement = 0;
+   // public int[] sequenceArr = { 1, 2, 3, 1, 2, 3 };
+   // public int[] guessArr;
+    //private int guessIncrement = 0;
+
+    
+
 
     //Last hit needs to be cleared after X time or after X happens because its stored and can be fired from afar
     void rayCasting()
@@ -60,26 +63,31 @@ public class RayCastInteraction : MonoBehaviour
         if (lastHit.transform.name == "Button1" && Input.GetKeyDown(KeyCode.E))
         {
             //Add an index to guessArr with number 1
-            print(lastHit.transform.name);
+            print(lastHit.transform.name + " Activated");
+            ButtonOne.GetComponent<MeshRenderer>().enabled = false;
 
-
-          //  Array.Reverse(sequenceArr); 
+           
         }
 
         //Button 3
         if (lastHit.transform.name == "Button2" && Input.GetKeyDown(KeyCode.E))
         {
             //Add an index to guessArr with number 2
-            print(lastHit.transform.name);
-           
+            print(lastHit.transform.name + " Activated");
+            ButtonTwo.GetComponent<MeshRenderer>().enabled = false;
         }
 
         //Button 3
         if (lastHit.transform.name == "Button3" && Input.GetKeyDown(KeyCode.E)) 
         {
             //Add an index to guessArr with number 3
-            print(lastHit.transform.name);
-          
+            print(lastHit.transform.name + " Activated");
+            ButtonThree.GetComponent<MeshRenderer>().enabled = false;
+        }
+
+        if(ButtonOne.GetComponent<MeshRenderer>().enabled == false && ButtonTwo.GetComponent<MeshRenderer>().enabled == false && ButtonThree.GetComponent<MeshRenderer>().enabled == false)
+        {
+            purpledoor.transform.position = purpledoor.transform.position + new Vector3(0, 20, 0);
         }
 
 
@@ -110,7 +118,7 @@ public class RayCastInteraction : MonoBehaviour
 
             heldObject = lastHit;
             print("This is a physics Item. You can pick it up.");
-            heldObject.GetComponent<Renderer>().material.color = Random.ColorHSV();
+           // heldObject.GetComponent<Renderer>().material.color = Random.ColorHSV();
             HoldingItem = !HoldingItem;
         }
 

@@ -40,10 +40,11 @@ public class _SaveLoad : MonoBehaviour
         SetPosition(1, 1, 1);
         SetID(1000);
 
-        m_path = Application.dataPath;
+        //m_path = Application.dataPath;
 
-        fn = m_path + "/Saves/WoahFile.txt";
-
+       // fn = m_path + "/Saves/WoahFile.txt";
+         fn = Application.persistentDataPath + "/SavePlayerPosition.txt";
+        
     }
 
     void savePositionToFile(float x, float y, float z)

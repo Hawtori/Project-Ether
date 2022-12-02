@@ -8,7 +8,7 @@ public class FlashLight : MonoBehaviour
    public GameObject flashLight;
 
    float onDuration = 0;
-   float maxDuration = 60;
+   float maxDuration = 90; //seconds
    bool canTurnOn = true;
    int flickerAmount = 1000;
 
