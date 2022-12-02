@@ -116,9 +116,9 @@ MonoBehaviour:
     m_Bits: 8
   walkPoint: {x: 0, y: 0, z: 0}
   wpRange: 5
-  attackCooldown: 5
+  attackCooldown: 10
   visionRadius: 20
-  attackRange: 5
+  attackRange: 0.75
   playerVisible: 0
   playerCanAttacked: 0
 --- !u!195 &69199711
@@ -155,4 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a9c64752c9847419bf2ab5b2df57d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 12
