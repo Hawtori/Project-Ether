@@ -10,7 +10,7 @@ public class hurtplayer : MonoBehaviour
     public GameObject player, pain, dead, win;
 
     //3 tap
-    int hitPoint = 4;
+    public int hitPoint = 4;
 
     // Start is called before the first frame update
     void Start()
