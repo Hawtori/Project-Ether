@@ -10,8 +10,11 @@ private void OnCollisionEnter(Collision other) {
 }
 
 private void OnCollisionExit(Collision other) {
-    other.transform.SetParent(GameObject.Find("===Player===").transform);
+    if(other.transform.tag == "Player"){
+        other.transform.SetParent(GameObject.Find("===Player===").transform);
+    }
 }
+
 
 
 
