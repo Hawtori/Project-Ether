@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlashLight : MonoBehaviour
 {
 
-   public GameObject flashLight;
+   public GameObject flashLight, uiFlashIcon;
 
-   float onDuration = 0;
-   float maxDuration = 90; //seconds
+   public float onDuration = 1;
+   public float maxDuration = 90; //seconds
    bool canTurnOn = true;
    int flickerAmount = 1000;
 
@@ -48,6 +49,10 @@ public class FlashLight : MonoBehaviour
             flashLight.GetComponent<Light>().enabled = false;
             canTurnOn = false;
         }
+
+
+        uiFlashIcon.GetComponent<RawImage>().color = new Color(0,1 - (onDuration/maxDuration),0,1);
+        flashLight.GetComponent<Light>().color = new Color(1 - (onDuration/maxDuration),1 - (onDuration/maxDuration),1 - (onDuration/maxDuration),1);
 
     }
 }
