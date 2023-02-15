@@ -28,6 +28,14 @@ public class BatteryPort : MonoBehaviour
             Time.timeScale = 0;
         }
 
+        if(other.tag == "Player"){
+              Debug.Log("Player Collided with win area");
+   
+            //Win State
+            itemToActivate.SetActive(true);
+            Time.timeScale = 0;
+        }
+
    
     }
 

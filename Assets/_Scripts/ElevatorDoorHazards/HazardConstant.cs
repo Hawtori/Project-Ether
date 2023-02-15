@@ -14,9 +14,11 @@ public class HazardConstant : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-     Debug.Log("Lasered");
-
+    if(other.transform.tag == "Player"){
+        Debug.Log("Lasered: " + other.transform.name + " Tag: " + other.transform.tag);
         hurtplayer.hitPoint = 0;
+    }
+
     }
 
     // Update is called once per frame
