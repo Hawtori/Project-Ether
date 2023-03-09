@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2022 Audiokinetic Inc.
+Copyright (c) 2023 Audiokinetic Inc.
 *******************************************************************************/
 
 [UnityEditor.CustomEditor(typeof(AkRoom))]
@@ -110,7 +110,9 @@ public class AkRoomInspector : UnityEditor.Editor
 				gameObject.GetComponent<UnityEngine.CapsuleCollider>() != null ||
 				gameObject.GetComponent<UnityEngine.MeshCollider>() != null ||
 				(gameObject.GetComponent<AkSurfaceReflector>() != null && gameObject.GetComponent<AkSurfaceReflector>().enabled))
+			{
 				bSupported = true;
+			}
 
 			if (bSupported == false)
 			{
