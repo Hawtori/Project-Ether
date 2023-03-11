@@ -25,6 +25,10 @@ public class SpiderAnims : MonoBehaviour
     private int nLegs;
     private Vector3[] raycastPos;
 
+    public Vector3 forward;
+
+    //private int indexToMove = -1;
+
     private void Start()
     {
         nLegs = targets.Length;
@@ -41,13 +45,13 @@ public class SpiderAnims : MonoBehaviour
 
     private void FixedUpdate()
     {
-        for(int i = 0; i < nLegs; i++)
+        for (int i = 0; i < nLegs; i++)
         {
             // ray cast down to find point of contact with floor
             RaycastHit hit;
             Ray ray = new Ray(raycastPos[i] + transform.up * 2f, -transform.up);
 
-            if(Physics.Raycast(ray, out hit, 0.1f))
+            if (Physics.Raycast(ray, out hit, 0.1f))
             {
                 targets[i].position = hit.point;
             }
@@ -57,15 +61,26 @@ public class SpiderAnims : MonoBehaviour
 
 
         for (int i = 0; i < legMoving.Length; i++) if (legMoving[i]) return;
-        for(int i = 0; i < nLegs; i++)
+        for (int i = 0; i < nLegs; i++)
         {
             // check if the distance between the point and the target is greater than max
-            if (Vector3.Distance(targets[i].position, points[i].position) > (maxDistance) && legMoving[i] == false)
+            if (Vector3.Distance(targets[i].position, points[i].position) > (maxDistance) && legMoving[i] == false/* && indexToMove == -1*/)
             {
+                //indexToMove = i;
                 StartCoroutine(Step(i, targets[i].position));
                 break;
                 //points[i].position = targets[i].position;
             }
+        }
+        //if(indexToMove != -1) StartCoroutine(Step(indexToMove, targets[indexToMove].position));
+    }
+
+    public IEnumerator Rotate(float angle)
+    {
+        for (int i = 0; i < 150f; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            transform.Rotate(0f, angle / 150f, 0f);
         }
     }
 
@@ -73,7 +88,7 @@ public class SpiderAnims : MonoBehaviour
     {
         Vector3 startPos = points[index].position;
         legMoving[index] = true;
-        for(int i = 0; i <= smooth; i++)
+        for (int i = 0; i <= smooth; i++)
         {
             points[index].position = Vector3.Lerp(startPos, target, i / (smooth + 1f));
 
@@ -86,5 +101,7 @@ public class SpiderAnims : MonoBehaviour
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         legMoving[index] = false;
+
+        //indexToMove = -1;
     }
 }
