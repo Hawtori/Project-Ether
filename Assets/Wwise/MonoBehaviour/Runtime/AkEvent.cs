@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2022 Audiokinetic Inc.
+Copyright (c) 2023 Audiokinetic Inc.
 *******************************************************************************/
 
 /// <summary>
@@ -94,6 +94,8 @@ public class AkEvent : AkDragDropTriggerHandler
 		if (useCallbacks)
 			EventCallbackMsg = new AkEventCallbackMsg { sender = gameObject };
 
+		soundEmitterObject = gameObject;
+
 		base.Start();
 	}
 
@@ -143,7 +145,7 @@ public class AkEvent : AkDragDropTriggerHandler
 
 	public void Stop(int _transitionDuration, AkCurveInterpolation _curveInterpolation)
 	{
-		data.Stop(soundEmitterObject, _transitionDuration, _curveInterpolation);
+		data.Stop(soundEmitterObject ? soundEmitterObject : gameObject, _transitionDuration, _curveInterpolation);
 	}
 
 	#region Obsolete
