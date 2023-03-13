@@ -54,7 +54,7 @@ public class UIMove : MonoBehaviour
         }
 
 
-        Debug.Log(uiExtended);
+//        Debug.Log(uiExtended);
 
     }
 }

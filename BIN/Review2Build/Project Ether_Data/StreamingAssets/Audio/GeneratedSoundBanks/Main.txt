@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1287408361	GunShot			\Default Work Unit\GunShot	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	324332427	GunShot	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\mixkit-short-laser-gun-shot-1670_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\GunShot		163328
+
