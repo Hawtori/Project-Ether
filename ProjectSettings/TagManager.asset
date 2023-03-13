@@ -13,6 +13,7 @@ TagManager:
   - CanPickUp
   - Battery
   - Enemy
+  - Vent
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - PickUp
   - HoldLayer
   - Lights
-  - 
+  - Vent
   - 
   - 
   - postprocessing

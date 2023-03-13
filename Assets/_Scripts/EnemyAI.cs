@@ -6,8 +6,11 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public Transform player;
-    public LayerMask isGround, isPlayer;
+    public Transform player, vent;
+    public Transform[] vents;
+    public GameObject ventMaster;
+    
+    public LayerMask isGround, isPlayer, isVent;
 
     //Idle Walking
     public Vector3 walkPoint;
@@ -19,12 +22,17 @@ public class EnemyAI : MonoBehaviour
     bool didAttack;
 
     //States
-    public float visionRadius, attackRange;
-    public bool playerVisible, playerCanAttacked;
+    public float visionRadius, attackRange, ventLocator;
+    public bool playerVisible, playerCanAttacked, ventFound, goVent;
+
+    //Vent Times
+    private float goVentCountdown = 10.0f;
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
+        ventMaster = GameObject.Find("VentMaster");
+        vents = ventMaster.GetComponentsInChildren<Transform>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -32,10 +40,20 @@ public class EnemyAI : MonoBehaviour
     {
         playerVisible = Physics.CheckSphere(transform.position, visionRadius, isPlayer);
         playerCanAttacked = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+        ventFound = Physics.CheckSphere(transform.position, ventLocator, isVent);
 
-        if (!playerVisible && !playerCanAttacked) Patrol();
-        if (playerVisible && !playerCanAttacked) Chase();
-        if (playerVisible && playerCanAttacked) Attack();
+        if (!playerVisible && !playerCanAttacked && !goVent) Patrol();
+        if (!playerVisible && !playerCanAttacked && goVent && ventFound) Vent();
+        if (playerVisible && !playerCanAttacked)
+        {
+            goVent = false;
+            Chase();
+        }
+        if (playerVisible && playerCanAttacked)
+        {
+            goVent = false;
+            Attack(); 
+        }
     }
 
     private void Patrol()
@@ -49,6 +67,11 @@ public class EnemyAI : MonoBehaviour
 
         if (disToWalkPoint.magnitude < 0.5f)
             walkPointSet = false;
+        goVentCountdown -= Time.deltaTime;
+        if (goVentCountdown <= 0f)
+        {
+            goVent = true;
+        }
     }
     private void SearchWalkPoint()
     {
@@ -62,7 +85,28 @@ public class EnemyAI : MonoBehaviour
 
     private void Chase()
     {
+        goVentCountdown = 10.0f;
         agent.SetDestination(player.position);
+    }
+
+    private void Vent()
+    {
+        FindClosestVent();
+        agent.SetDestination(vent.position);
+    }
+
+    private void FindClosestVent()
+    {
+        float closestDis = Mathf.Infinity;
+        for (int i = 0; i < vents.Length; i++)
+        {
+            float dis = Vector3.Distance(vents[i].transform.position, transform.position);
+            if (dis < closestDis)
+            {
+                closestDis = dis;
+                vent = vents[i];
+            }
+        }
     }
 
     private void Attack()
@@ -93,6 +137,8 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, ventLocator);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRadius);
         Gizmos.DrawRay(transform.position, transform.forward * 4f);
