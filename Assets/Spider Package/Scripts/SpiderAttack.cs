@@ -66,14 +66,29 @@ public class SpiderAttack : MonoBehaviour
         Collider[] objectsInRange = Physics.OverlapSphere(location, radius);
         foreach (Collider col in objectsInRange)
         {
-            Health hp = col.GetComponent<Health>();
+            Debug.Log("Collided with: " + col.name);
+
+            hurtplayer hp = col.GetComponent<hurtplayer>();
+            // damage player
             if (hp != null)
             {
                 // linear falloff of effect
                 float proximity = (location - hp.transform.position).magnitude;
                 float effect = 1 - (proximity / radius);
 
-                hp.TakeDamage(damage * effect);
+                hp.TakeDamage((int)(damage * effect));
+            }
+            else
+            {
+                // damage enemies
+                Health health = col.GetComponent<Health>();
+                if(health != null)
+                {
+                    float proximity = (location - health.transform.position).magnitude;
+                    float effect = 1 - (proximity / radius);
+
+                    health.TakeDamage(damage * effect);
+                }
             }
         }
         Invoke("Die", .25f);
@@ -88,10 +103,10 @@ public class SpiderAttack : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         pos += (transform.position - pos).normalized * 2f;
-        for (int i = 0; i < 50f; i++)
+        for (int i = 0; i < 25f; i++)
         {
-            transform.position = Vector3.Lerp(startPos, pos, i / 51f);
-            transform.position += transform.up * Mathf.Sin(i / 51f * Mathf.PI) * 0.5f;
+            transform.position = Vector3.Lerp(startPos, pos, i / 26f);
+            transform.position += transform.up * Mathf.Sin(i / 26f * Mathf.PI) * 0.5f;
             yield return new WaitForFixedUpdate();
         }
         freezePos = true;

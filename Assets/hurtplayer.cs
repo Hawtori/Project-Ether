@@ -48,13 +48,14 @@ public class hurtplayer : MonoBehaviour
                 pain.GetComponent<Image>().color = new Color(255, 255, 255, 0);
                 break;
 
-        }
-            
+        }       
 
-        
-        
+    }
 
-
+    public void TakeDamage(int d)
+    {
+        hitPoint -= d;
+        hitPoint = Mathf.Clamp(hitPoint, 0, 4);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,0 +1,13 @@
+size: 6
+
+anims:
+	max distance = 1
+	step height = 0.3
+
+move:
+	speed = 0.5
+
+attack:
+	damage = 8
+	radius = 24
+	

@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        gameObject.tag = "Bullet";
         Invoke("DestroySelf", 2f);           
     }
 

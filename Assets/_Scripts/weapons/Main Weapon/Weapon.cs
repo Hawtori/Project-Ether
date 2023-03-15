@@ -16,6 +16,7 @@ public class Weapon : MonoBehaviour
     public float recoilForce;
     public float equipTime;
     public float timeBetweenShooting, spread, reloadTime;
+    public int totalBullets;
     public int magSize;
     public bool isAuto;
 
@@ -75,7 +76,7 @@ public class Weapon : MonoBehaviour
         Inputs();
 
         if (ammoDisplay != null)
-            ammoDisplay.SetText(bulletsLeft + " / " + magSize);
+            ammoDisplay.SetText(bulletsLeft + " / " + Mathf.Max(totalBullets, 0));
 
         ChangeSpread();
     }
@@ -87,7 +88,7 @@ public class Weapon : MonoBehaviour
         else
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && totalBullets > 0 && !reloading)
         {
             Rel.Invoke();
             Reload();
@@ -234,7 +235,8 @@ public class Weapon : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.white;
         if(anim != null)
         anim.SetBool("Reload", false);
-        bulletsLeft = magSize;
+        totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 100);
+        bulletsLeft = Mathf.Min(magSize, totalBullets + magSize);
         reloading = false;
     }
 
