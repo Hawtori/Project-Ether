@@ -181,10 +181,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6439890053709323735, guid: e024137b5f50dc64692a5fc3885469e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a64c5b5fdfbebbf49892531838125bf1, type: 2}
     - target: {fileID: 919132149155446097, guid: e024137b5f50dc64692a5fc3885469e7, type: 3}
       propertyPath: m_Name
       value: Elevator
       objectReference: {fileID: 0}
+    - target: {fileID: 3310029484439101131, guid: e024137b5f50dc64692a5fc3885469e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 152efac87ca3d464c97fff77087df468, type: 2}
+    - target: {fileID: 6758911153784734497, guid: e024137b5f50dc64692a5fc3885469e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50503d788f92fca41a7715741c4dc7e2, type: 2}
+    - target: {fileID: 7894858964058179473, guid: e024137b5f50dc64692a5fc3885469e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a64c5b5fdfbebbf49892531838125bf1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
