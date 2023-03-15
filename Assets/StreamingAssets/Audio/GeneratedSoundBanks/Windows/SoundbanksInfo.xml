@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
 	<RootPaths>
-		<ProjectRoot>../..</ProjectRoot>
-		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../../../Documents/WwiseProjects/ProjectEther</ProjectRoot>
+		<SourceFilesRoot>../../../../../../../../Documents/WwiseProjects/ProjectEther/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../../../Documents/WwiseProjects/ProjectEther/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="152968626" Type="User" Language="SFX" Hash="{5FAA947D-F82F-65A9-EF64-F1A6FFCB836F}">
+		<SoundBank Id="152968626" Type="User" Language="SFX" Hash="{1E46686D-98F2-BB83-BB59-7E195F85FFA6}">
 			<ShortName>SB_Main</ShortName>
 			<Path>SB_Main.bnk</Path>
 			<Media>
@@ -25,18 +25,44 @@
 					<ShortName>mixkit-short-laser-gun-shot-1670.wav</ShortName>
 					<CachePath>SFX/mixkit-short-laser-gun-shot-1670_10C4C929.wem</CachePath>
 				</File>
+				<File Id="390210900" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>unstable-nuclear-reactor-63624.wav</ShortName>
+					<CachePath>SFX/unstable-nuclear-reactor-63624_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="480963761" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>vent_3-36759.wav</ShortName>
+					<CachePath>SFX/vent_3-36759_D79FB2B7.wem</CachePath>
+				</File>
 				<File Id="487548086" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>mag-reload-81594.wav</ShortName>
 					<CachePath>SFX/mag-reload-81594_9A0A74EC.wem</CachePath>
+				</File>
+				<File Id="595610140" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ny-steam-radiator-19157.wav</ShortName>
+					<CachePath>SFX/ny-steam-radiator-19157_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="765157427" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>muffled-pipe-draining-32374.wav</ShortName>
+					<CachePath>SFX/muffled-pipe-draining-32374_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="821363666" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>rifle-clip-empty-98832.wav</ShortName>
 					<CachePath>SFX/rifle-clip-empty-98832_0E2E5CFB.wem</CachePath>
 				</File>
+				<File Id="944381938" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>phoenixscreech1-107784.wav</ShortName>
+					<CachePath>SFX/phoenixscreech1-107784_D79FB2B7.wem</CachePath>
+				</File>
 			</Media>
 			<Plugins>
 				<ShareSets>
+					<Plugin Id="701863527" Name="Inside_My_Head" LibName="Wwise RoomVerb" LibId="7733251"/>
 					<Plugin Id="1008402193" Name="Low_Pass_20KHz" LibName="Wwise Parametric EQ" LibId="6881283"/>
+					<Plugin Id="1416967478" Name="All_Buttons_IN" LibName="Wwise Compressor" LibId="7077891"/>
+					<Plugin Id="1431265797" Name="Monsterize" LibName="Wwise Pitch Shifter" LibId="8912899"/>
+					<Plugin Id="2648499661" Name="Hall_Medium_Dark" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3442768367" Name="Hall_Large_Dark" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3948262040" Name="Octave_Down" LibName="Wwise Pitch Shifter" LibId="8912899"/>
 				</ShareSets>
 			</Plugins>
 			<Events>
@@ -49,6 +75,17 @@
 					<MediaRefs>
 						<MediaRef Id="324332427"/>
 					</MediaRefs>
+				</Event>
+				<Event Id="190747137" Name="HallwayAmbientPlay" DurationType="OneShot" DurationMin="396.216" DurationMax="396.216">
+					<MediaRefs>
+						<MediaRef Id="595610140"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="1416967478"/>
+							<PluginRef Id="3442768367"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="347371133" Name="Play_Sound_Main" DurationType="Infinite">
 					<SwitchContainers>
@@ -66,6 +103,11 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
+				<Event Id="1401041195" Name="ReactorAmbiencePlay" MaxAttenuation="45" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="390210900"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="456382354" Name="Reload" DurationType="OneShot" DurationMin="1.600128" DurationMax="1.600128">
 					<MediaRefs>
 						<MediaRef Id="487548086"/>
@@ -76,7 +118,38 @@
 						</ShareSets>
 					</PluginRefs>
 				</Event>
+				<Event Id="2069746738" Name="ScreechAmbientPlay" DurationType="OneShot" DurationMin="8.256" DurationMax="8.256">
+					<MediaRefs>
+						<MediaRef Id="944381938"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="1431265797"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
+				<Event Id="1892759460" Name="ShipGroanPlay" DurationType="OneShot" DurationMin="39.312" DurationMax="39.312">
+					<MediaRefs>
+						<MediaRef Id="765157427"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="701863527"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 				<Event Id="3284699527" Name="Stop_Sound_Main" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="1210304830" Name="VentAmbientPlay" DurationType="OneShot" DurationMin="2.4555101" DurationMax="2.4555101">
+					<MediaRefs>
+						<MediaRef Id="480963761"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="2648499661"/>
+							<PluginRef Id="3948262040"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 			</Events>
 			<StateGroups>
 				<StateGroup Id="3813552729" Name="SoundState">
@@ -88,14 +161,13 @@
 				</StateGroup>
 			</StateGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{10D34C33-FC40-4794-EADD-A61521FD0EF9}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{666C227C-2A77-4C87-6C19-332C9B6731B8}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
 				<AudioDevices>
 					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
 					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
-					<Plugin Id="4230635974" Name="Default_Motion_Device" LibName="Wwise Motion" LibId="33226759"/>
 				</AudioDevices>
 			</Plugins>
 			<Busses>
@@ -248,5 +320,5 @@
 			</AcousticTextures>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E387D944-5653-E3A3-89D9-A65ED41F09DE}</FileHash>
+	<FileHash>{F27BD930-42A6-5960-AA58-6D0797BE3D53}</FileHash>
 </SoundBanksInfo>
