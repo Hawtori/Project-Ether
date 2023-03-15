@@ -94,7 +94,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0155b3075cfdec24895f2b00f53f7e26, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1588441682257097819}
+      addedObject: {fileID: 259951541916945987}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0155b3075cfdec24895f2b00f53f7e26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 902615971511460823}
   m_SourcePrefab: {fileID: 100100000, guid: 0155b3075cfdec24895f2b00f53f7e26, type: 3}
 --- !u!4 &162034223498592974 stripped
 Transform:
@@ -106,8 +109,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0155b3075cfdec24895f2b00f53f7e26, type: 3}
   m_PrefabInstance: {fileID: 411252782061479205}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1588441682257097819
-MeshCollider:
+--- !u!65 &259951541916945987
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,7 +127,33 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -153830957423991239, guid: 0155b3075cfdec24895f2b00f53f7e26, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.019999998, y: 0.019999998, z: 0.02}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &902615971511460823
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681303481376004212}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 6
+  m_AngularDrag: 7
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

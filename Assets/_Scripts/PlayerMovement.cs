@@ -78,20 +78,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //previous check for if grounded
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = true;
-    //
-    //        //reset variables
-    //        jumping = false;
-    //        jumpForceIncrease = 400f;
-    //        jumpForce = 400;
-    //        jumpTime = 0.2f;
-    //    }
-    //}
-    //
+    /*private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+    
+            //reset variables
+            jumping = false;
+            jumpForceIncrease = 400f;
+            jumpForce = 400;
+            jumpTime = 0.2f;
+        }
+    }*/
+    
     //private void OnCollisionExit(Collision collision)
     //{
     //    if (collision.gameObject.CompareTag("Ground")) isGrounded = false;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) x = -1;
         if (Input.GetKey(KeyCode.D)) x = 1;
                 
-        jump = Input.GetButton("Jump");
+       // jump = Input.GetButton("Jump");
     }
 
     private void CheckGround()
