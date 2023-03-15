@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PlatformInfo>
-	<Platform Name="Windows" BasePlatform="Windows" Generator="2022.1.0.7985"/>
+	<Platform Name="Windows" BasePlatform="Windows" Generator="2022.1.2.8150"/>
 	<RootPaths>
 		<ProjectRoot>../../../../../../../Documents/WwiseProjects/ProjectEther</ProjectRoot>
 		<SourceFilesRoot>../../../../../../../Documents/WwiseProjects/ProjectEther/.cache/Windows</SourceFilesRoot>
@@ -28,5 +28,5 @@
 		<PrintObjectGuid>false</PrintObjectGuid>
 		<PrintObjectPath>false</PrintObjectPath>
 	</Settings>
-	<FileHash>{C02F7EDB-B57F-F06D-FD84-4379210A134E}</FileHash>
+	<FileHash>{4214FECD-CBA9-838A-E2A0-CC1D0B76C1B8}</FileHash>
 </PlatformInfo>

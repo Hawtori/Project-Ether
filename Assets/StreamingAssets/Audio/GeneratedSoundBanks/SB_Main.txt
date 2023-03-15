@@ -1,0 +1,41 @@
+Event	ID	Name			Wwise Object Path	Notes
+	190747137	HallwayAmbientPlay			\Default Work Unit\GribbleEffects\HallwayAmbientPlay	
+	347371133	Play_Sound_Main			\Default Work Unit\PlayAudio\Play_Sound_Main	
+	456382354	Reload			\Default Work Unit\Main Gun Noises\Reload	
+	1095758322	EmptyGun			\Default Work Unit\Main Gun Noises\EmptyGun	
+	1210304830	VentAmbientPlay			\Default Work Unit\GribbleEffects\VentAmbientPlay	
+	1287408361	GunShot			\Default Work Unit\Main Gun Noises\GunShot	
+	1401041195	ReactorAmbiencePlay			\Default Work Unit\Reactor\ReactorAmbiencePlay	
+	1892759460	ShipGroanPlay			\Default Work Unit\GribbleEffects\ShipGroanPlay	
+	2069746738	ScreechAmbientPlay			\Default Work Unit\GribbleEffects\ScreechAmbientPlay	
+	3284699527	Stop_Sound_Main			\Default Work Unit\PlayAudio\Stop_Sound_Main	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	3813552729	SoundState			\Default Work Unit\SoundState	
+
+State	ID	Name	State Group			Notes
+	748895195	None	SoundState			
+	3494343696	PauseMenu	SoundState			
+	3604647259	MainMenu	SoundState			
+
+Effect plug-ins	ID	Name	Type				Notes
+	701863527	Inside_My_Head	Wwise RoomVerb			
+	1008402193	Low_Pass_20KHz	Wwise Parametric EQ			
+	1416967478	All_Buttons_IN	Wwise Compressor			
+	1431265797	Monsterize	Wwise Pitch Shifter			
+	2648499661	Hall_Medium_Dark	Wwise RoomVerb			
+	3442768367	Hall_Large_Dark	Wwise RoomVerb			
+	3948262040	Octave_Down	Wwise Pitch Shifter			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	14464977	MainMenu	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\MainMenu_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Sound_Main\MainMenu\MainMenu\MainMenu		4617136
+	57408676	PauseMenu	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\PauseMenu_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Sound_Main\PauseMenu\PauseMenu\PauseMenu		6040840
+	324332427	GunShot	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\mixkit-short-laser-gun-shot-1670_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\GunShot		163328
+	390210900	unstable-nuclear-reactor-63624	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\unstable-nuclear-reactor-63624_D79FB2B7.wem		\Interactive Music Hierarchy\Ambient\AmbientAudio\AmbientAudio\ReactorAmbience\Reactor Ambience\unstable-nuclear-reactor-63624		3845472
+	480963761	vent_3-36759	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\vent_3-36759_D79FB2B7.wem		\Interactive Music Hierarchy\Ambient\AmbientAudio\AmbientAudio\VentAmbience\vent_3-36759		216672
+	487548086	Reload	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\mag-reload-81594_9A0A74EC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\Reload		141226
+	595610140	ny-steam-radiator-19157	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\ny-steam-radiator-19157_D79FB2B7.wem		\Interactive Music Hierarchy\Ambient\AmbientAudio\AmbientAudio\HallwayAmbience\ny-steam-radiator-19157		38036832
+	765157427	muffled-pipe-draining-32374	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\muffled-pipe-draining-32374_D79FB2B7.wem		\Interactive Music Hierarchy\Ambient\AmbientAudio\AmbientAudio\ShipGroanAmbience\muffled-pipe-draining-32374		3774048
+	821363666	EmptyGun	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\rifle-clip-empty-98832_0E2E5CFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Gun Noises\EmptyGun		46974
+	944381938	phoenixscreech1-107784	C:\Users\gabem\Documents\WwiseProjects\ProjectEther\.cache\Windows\SFX\phoenixscreech1-107784_D79FB2B7.wem		\Interactive Music Hierarchy\Ambient\AmbientAudio\AmbientAudio\UncomfortableScreech\phoenixscreech1-107784		792672
+
