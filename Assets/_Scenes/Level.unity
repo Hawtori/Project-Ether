@@ -390,6 +390,30 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
+--- !u!114 &8681298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8681291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb020707275e6846b8ae5527135c1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: cdb449c5eaad7454c90061908bab6cc1, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!4 &8866340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5150871198865118720, guid: d86eb4b4de8640e47a4e9bc672d02628, type: 3}
@@ -8783,6 +8807,30 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
+--- !u!114 &534420003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534419996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb020707275e6846b8ae5527135c1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: cdb449c5eaad7454c90061908bab6cc1, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1001 &540451789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9598,6 +9646,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3183526831085871256, guid: d73c0f4b9c05ada4a93a69286dd3d37c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 915313811}
+    - targetCorrespondingSourceObject: {fileID: 3183526831085871256, guid: d73c0f4b9c05ada4a93a69286dd3d37c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 915313812}
   m_SourcePrefab: {fileID: 100100000, guid: d73c0f4b9c05ada4a93a69286dd3d37c, type: 3}
 --- !u!1001 &580062378
 PrefabInstance:
@@ -14076,6 +14127,30 @@ MonoBehaviour:
   eventIdInternal: 0
   valueGuidInternal: 
   m_callbackDataInternal: {fileID: 0}
+--- !u!114 &915313812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915313805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb020707275e6846b8ae5527135c1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: cdb449c5eaad7454c90061908bab6cc1, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &915873541
 GameObject:
   m_ObjectHideFlags: 0
@@ -26330,6 +26405,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 446756742991228964, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 534420001}
+    - targetCorrespondingSourceObject: {fileID: 446756742991228964, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 534420003}
   m_SourcePrefab: {fileID: 100100000, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
 --- !u!4 &1834763402 stripped
 Transform:
@@ -27021,6 +27099,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 446756742991228964, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8681296}
+    - targetCorrespondingSourceObject: {fileID: 446756742991228964, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8681298}
   m_SourcePrefab: {fileID: 100100000, guid: 6e8b647c6fdeffb4e8e3c50d4b0a85a7, type: 3}
 --- !u!4 &1872732747 stripped
 Transform:
