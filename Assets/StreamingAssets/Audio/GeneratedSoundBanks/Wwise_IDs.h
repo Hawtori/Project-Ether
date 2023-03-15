@@ -15,9 +15,14 @@ namespace AK
     {
         static const AkUniqueID EMPTYGUN = 1095758322U;
         static const AkUniqueID GUNSHOT = 1287408361U;
+        static const AkUniqueID HALLWAYAMBIENTPLAY = 190747137U;
         static const AkUniqueID PLAY_SOUND_MAIN = 347371133U;
+        static const AkUniqueID REACTORAMBIENCEPLAY = 1401041195U;
         static const AkUniqueID RELOAD = 456382354U;
+        static const AkUniqueID SCREECHAMBIENTPLAY = 2069746738U;
+        static const AkUniqueID SHIPGROANPLAY = 1892759460U;
         static const AkUniqueID STOP_SOUND_MAIN = 3284699527U;
+        static const AkUniqueID VENTAMBIENTPLAY = 1210304830U;
     } // namespace EVENTS
 
     namespace STATES
@@ -78,7 +83,6 @@ namespace AK
 
     namespace AUDIO_DEVICES
     {
-        static const AkUniqueID DEFAULT_MOTION_DEVICE = 4230635974U;
         static const AkUniqueID NO_OUTPUT = 2317455096U;
         static const AkUniqueID SYSTEM = 3859886410U;
     } // namespace AUDIO_DEVICES
