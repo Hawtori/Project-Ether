@@ -67,6 +67,7 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
+        anim.speed = 1;
         Invoke("CanShoot", equipTime);
     }
 
@@ -151,6 +152,12 @@ public class Weapon : MonoBehaviour
         currBullet.GetComponent<Rigidbody>().AddForce(targetDir.normalized * shootForce + transform.up * upwardForce, ForceMode.Impulse);
         if(upwardForce > 0) currBullet.GetComponent<Rigidbody>().useGravity = true;
 
+        if(anim != null)
+        {
+            anim.SetTrigger("Shot");
+            anim.speed = 1f;
+            Invoke("ResetTrigger", 0.1f);
+        }
 
         if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
 
@@ -165,6 +172,12 @@ public class Weapon : MonoBehaviour
 
     }
         
+    private void ResetTrigger()
+    {
+        anim.speed = 0f;
+        anim.ResetTrigger("Shot");
+    }
+
     private void ChangeSpread()
     {
         if (!isAuto)
@@ -217,7 +230,11 @@ public class Weapon : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Color.black;
         if(anim != null)
-        anim.SetBool("Reload", true);
+        {
+            anim.ResetTrigger("Shot");
+            anim.SetBool("Reload", true);
+            anim.speed = 1;
+        }
         reloading = true;
         Invoke("ReloadFinish", reloadTime);
     }
@@ -225,7 +242,11 @@ public class Weapon : MonoBehaviour
     public void CancelReload()
     {
         GetComponent<Renderer>().material.color = Color.white;
-        if (anim != null) anim.SetBool("Reload", false);
+        if (anim != null)
+        {
+            anim.SetBool("Reload", false);
+            anim.speed = 0;
+        }
         reloading = false;
         CancelInvoke("ReloadFinish");
     }
@@ -239,7 +260,10 @@ public class Weapon : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Color.white;
         if(anim != null)
-        anim.SetBool("Reload", false);
+        {
+            anim.SetBool("Reload", false);
+            anim.speed = 0;
+        }
         totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 175);
         bulletsLeft = Mathf.Min(magSize, totalBullets + magSize);
         reloading = false;
