@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.iOS;
-using UnityEngine.Playables;
 
 public class SpidyAnims : MonoBehaviour
 {

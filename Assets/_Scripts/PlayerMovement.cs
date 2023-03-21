@@ -107,6 +107,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) x = 1;
                 
        // jump = Input.GetButton("Jump");
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speedMultiplier = 1.35f;
+            GetComponent<Oxygen>().SetRunning(true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speedMultiplier = 1f;
+            GetComponent<Oxygen>().SetRunning(false);
+        }
     }
 
     private void CheckGround()

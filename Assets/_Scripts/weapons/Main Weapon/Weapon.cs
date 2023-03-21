@@ -230,12 +230,17 @@ public class Weapon : MonoBehaviour
         CancelInvoke("ReloadFinish");
     }
 
+    public void PickUpAmmo(int ammo)
+    {
+        totalBullets += ammo;
+    }
+
     private void ReloadFinish()
     {
         GetComponent<Renderer>().material.color = Color.white;
         if(anim != null)
         anim.SetBool("Reload", false);
-        totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 100);
+        totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 175);
         bulletsLeft = Mathf.Min(magSize, totalBullets + magSize);
         reloading = false;
     }

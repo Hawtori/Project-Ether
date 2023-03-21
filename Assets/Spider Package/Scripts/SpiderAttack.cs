@@ -66,8 +66,6 @@ public class SpiderAttack : MonoBehaviour
         Collider[] objectsInRange = Physics.OverlapSphere(location, radius);
         foreach (Collider col in objectsInRange)
         {
-            Debug.Log("Collided with: " + col.name);
-
             hurtplayer hp = col.GetComponent<hurtplayer>();
             // damage player
             if (hp != null)
@@ -76,20 +74,20 @@ public class SpiderAttack : MonoBehaviour
                 float proximity = (location - hp.transform.position).magnitude;
                 float effect = 1 - (proximity / radius);
 
-                hp.TakeDamage((int)(damage * effect));
+                hp.TakeDamage((int)Mathf.Clamp01((damage * effect)));
+                continue;
             }
-            else
+            
+            // damage enemies
+            Health health = col.GetComponent<Health>();
+            if(health != null)
             {
-                // damage enemies
-                Health health = col.GetComponent<Health>();
-                if(health != null)
-                {
-                    float proximity = (location - health.transform.position).magnitude;
-                    float effect = 1 - (proximity / radius);
+                float proximity = (location - health.transform.position).magnitude;
+                float effect = 1 - (proximity / radius);
 
-                    health.TakeDamage(damage * effect);
-                }
+                health.TakeDamage(damage * effect);
             }
+            
         }
         Invoke("Die", .25f);
     }
