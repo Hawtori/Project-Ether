@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class Respawn : MonoBehaviour
         
     if (Input.GetKeyDown(KeyCode.BackQuote))
          {
-             Application.LoadLevel(3);
+            SceneManager.LoadScene(3);
+             //Application.LoadLevel(3);
          }
 
     }

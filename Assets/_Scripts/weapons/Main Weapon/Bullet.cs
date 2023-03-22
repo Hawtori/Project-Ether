@@ -17,6 +17,11 @@ public class Bullet : MonoBehaviour
         RaycastHit hit;
         if(Physics.SphereCast(transform.position, 1.5f, transform.forward, out hit, 5f))
         {
+            if (hit.collider.CompareTag("Head"))
+            {
+                hit.transform.GetComponentInParent<Health>().TakeDamage(damage * 2.5f);
+                return;
+            }
             if(hit.transform.GetComponent<Health>() != null)
             {
                 hit.transform.GetComponent<Health>().TakeDamage(damage);

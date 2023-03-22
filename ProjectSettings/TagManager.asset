@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Vent
   - Bullet
+  - Head
   layers:
   - Default
   - TransparentFX

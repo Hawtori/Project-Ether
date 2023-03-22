@@ -9,8 +9,6 @@ public class MoveCamera : MonoBehaviour
 
     public Transform head;
 
-    private Transform initHeadPos;
-
     //private float moveTime = 0;
     //private bool goUp = true;
 
@@ -19,13 +17,7 @@ public class MoveCamera : MonoBehaviour
     {
         return a + (b - a) * t;
     }
-
-    private void Awake()
-    {
-        initHeadPos = head;
-    }
-
-    
+        
     private void Update()
     {
         transform.position = head.position;
