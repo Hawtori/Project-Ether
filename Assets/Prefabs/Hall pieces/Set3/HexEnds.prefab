@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8094548491869564144}
     m_Modifications:
+    - target: {fileID: -8688395517087577321, guid: 8a306c80d3ff7744293bf3e2ca13e9ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46a3261ad44594e4d9c09f4297bbb23c, type: 2}
     - target: {fileID: -8679921383154817045, guid: 8a306c80d3ff7744293bf3e2ca13e9ad, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -84,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7492400980961892868, guid: 8a306c80d3ff7744293bf3e2ca13e9ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46a3261ad44594e4d9c09f4297bbb23c, type: 2}
     - target: {fileID: 919132149155446097, guid: 8a306c80d3ff7744293bf3e2ca13e9ad, type: 3}
       propertyPath: m_Name
       value: HallwayAdd-on1

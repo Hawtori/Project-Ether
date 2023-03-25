@@ -6,12 +6,12 @@ public class PlatformMove : MonoBehaviour
 {
 
     public bool canMove = true;
-    [SerializeField] float speed;
-    [SerializeField] int startPoint;
-    [SerializeField] Transform[] points;
+    public float speed;
+    public int startPoint;
+    public Transform[] points;
 
     private int i;
-    [SerializeField] bool reverse;
+    public bool reverse;
 
 
     // Start is called before the first frame update
