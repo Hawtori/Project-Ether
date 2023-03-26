@@ -5,11 +5,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage;
+    public float aliveTime;
 
     private void Start()
     {
         gameObject.tag = "Bullet";
-        Invoke("DestroySelf", 2f);           
+        Invoke("DestroySelf", aliveTime);           
     }
 
     private void Update()

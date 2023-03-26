@@ -24,7 +24,7 @@ public class HazardConstant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (platform.canMove == false){
+        if (platform != null && platform.canMove == false){
             platform.canMove = !platform.canMove;
         }
     }

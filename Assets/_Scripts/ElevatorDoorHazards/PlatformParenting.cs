@@ -32,7 +32,7 @@ private void OnCollisionExit(Collision other) {
 }
 
 private void Update() {
-    if(platform.canMove){
+    if(itemToMove != null && platform.canMove){
         itemToMove.transform.position = transform.position + new Vector3(0,3.5f,0);
     }
 }

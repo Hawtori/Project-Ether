@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -285314589951005497}
   - component: {fileID: -6495901749673791162}
   m_Layer: 8
-  m_Name: Bulet
+  m_Name: Bulet pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373a447fc719eb5488a99212d7e62aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  aliveTime: 2
+  damage: 4
+  aliveTime: 1.5
 --- !u!96 &-6495901749673791162
 TrailRenderer:
   serializedVersion: 3

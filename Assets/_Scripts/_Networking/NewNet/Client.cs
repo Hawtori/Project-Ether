@@ -104,7 +104,11 @@ public class Client : MonoBehaviour
         //Dbuggr.instance.AddText("FROM CLIENT Received message: " + split[1]);
 
         // game start indication
-        if (split[0] == "5") SceneManager.LoadScene(3);
+        if (split[0] == "5")
+        {
+            NetInfo.Instance.SetSeed((int)(DateTime.Now.Ticks & 0xffffffffL));
+            SceneManager.LoadScene(3);
+        }
             //Dbuggr.instance.AddText("Received good to go to start game");
         // client joining message
         if (split[0] == "0") clientsText.text += split[1] + '\n';

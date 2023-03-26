@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformMove : MonoBehaviour
 {
 
-    public bool canMove = true;
+    public bool canMove = false;
     public float speed;
     public int startPoint;
     public Transform[] points;

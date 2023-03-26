@@ -15,6 +15,8 @@ public class NetInfo : MonoBehaviour
 
     private string serverIP;
 
+    private int seed = 0;
+
     private void Awake()
     {
         if(Instance == null) Instance = this;
@@ -29,6 +31,8 @@ public class NetInfo : MonoBehaviour
     public int GetUDPPort() => UDP_Port;
     public int GetClientNum() => clientNum;
     public string GetName() => clientName;
+    public int GetSeed() => seed;
+    public void SetSeed(int s) => seed = s;
     public void SetIP(string ip) => serverIP = ip;
     public void SetClient(int n) => clientNum = n;
     public void SetName(string name) => clientName = name;

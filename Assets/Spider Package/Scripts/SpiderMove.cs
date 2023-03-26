@@ -18,6 +18,8 @@ public class SpiderMove : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (NetInfo.Instance != null) Random.InitState(NetInfo.Instance.GetSeed());
     }
 
     private void Update()
@@ -33,7 +35,11 @@ public class SpiderMove : MonoBehaviour
 
         if (!enable) return;
 
-        float noise = (Mathf.PerlinNoise(Time.time, 0f) - 0.5f);
+        if (NetInfo.Instance != null) Random.InitState(NetInfo.Instance.GetSeed());
+
+        float x = Random.value;
+
+        float noise = (Mathf.PerlinNoise(x, 0f) - 0.5f);
         rb.velocity += (new Vector3(1f, 0, 0) * noise * 2 * speed);
         transform.Rotate(0f, noise / 8f, 0f);
         //controller.Move(transform.forward * speed);
