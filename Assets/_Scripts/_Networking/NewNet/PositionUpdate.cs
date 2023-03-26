@@ -7,8 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using static UnityEditor.PlayerSettings;
-using System.Diagnostics;
 
 public class PositionUpdate : MonoBehaviour
 {
@@ -56,7 +54,7 @@ public class PositionUpdate : MonoBehaviour
 
     private void Update()
     {
-        inputs = PlayerMovement.instance.GetMovement();
+        //inputs = PlayerMovement.instance.GetMovement();
         if (inputs.magnitude > 0) flag = true;
     }
 

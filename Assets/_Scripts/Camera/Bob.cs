@@ -19,6 +19,7 @@ public class Bob : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
         if (player.velocity.magnitude < speedThreshold) timer = 0f;
         else timer += bobSpeed;
 

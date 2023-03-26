@@ -41,13 +41,23 @@ public class CreateServer : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        StartServer();
+        if(sendMsg != "")
+        {
+            //Dbuggr.instance.AddText(sendMsg);
+            sendMsg = "";
+        }
     }
 
-    private void StartServer()
+    public void Server()
     {
+        StartCoroutine(StartServer());
+    }
+
+    private IEnumerator StartServer()
+    {
+        yield return null;
         IPAddress ip = IPAddress.Parse(GetLocalIPv4());
         NetInfo.Instance.SetIP(ip.ToString());
 
@@ -71,6 +81,7 @@ public class CreateServer : MonoBehaviour
         udpThread = new Thread(() =>
         {
             while (true) {
+                // receive position update
                 int recv = udpSocket.ReceiveFrom(posBuffer, ref remoteClient);
 
                 if (!clientEPs.Contains((IPEndPoint)remoteClient))
@@ -78,13 +89,16 @@ public class CreateServer : MonoBehaviour
                     clientEPs.Add((IPEndPoint)remoteClient);
                 }
 
+                // send it to other client
                 foreach(var client in clientEPs)
                 {
-                    if (((IPEndPoint)client).Port != ((IPEndPoint)remoteClient).Port)
+                    if ((client) != (remoteClient))
                         udpSocket.SendTo(posBuffer, client);
                 }
             }
         });
+        udpThread.Start();
+
     }
 
     #region TCP
@@ -96,14 +110,16 @@ public class CreateServer : MonoBehaviour
             clientSockets.Add(socket);
         socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(ReceiveCallBack), socket);
 
-        Debug.Log($"Client connected (TCP)! Currently {clientSockets.Count} clients are connected.");
+        //Debug.Log($"Client connected (TCP)! Currently {clientSockets.Count} clients are connected.");
 
-        //if(clientSockets.Count > 1)
+        foreach(var client in clientSockets)
         {
-            // send a package upon connecting that says the client's name
-            //clientTxt.text = "Client " + Dns.GetHostName() /*Encoding.ASCII.GetString(buffer)*/ + " has connected! " + clientSockets.Count;
+            sendMsg = "FROM SERVER Client: " + client.RemoteEndPoint;
+            //Debug.Log("Client : " + client.RemoteEndPoint);
+            //Dbuggr.instance.AddText("client: " + client.RemoteEndPoint);
         }
 
+        if(clientSockets.Count < 3)
         tcpSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
     }
 
@@ -113,33 +129,26 @@ public class CreateServer : MonoBehaviour
         int recv = socket.EndReceive(result);
         byte[] data = new byte[recv];
 
-
         Array.Copy(buffer, data, recv);
 
-        // depending on which client sent, add an indicator and concatinate the message, send to all clients
-        // if it says 1 then msg, show it as client 1, if it says 2, show it as client 2, if it says 3, show it as system
-
         string msg = Encoding.ASCII.GetString(data);
-        //Console.WriteLine($"Revceived {msg} from " + socket.RemoteEndPoint.ToString());
-
-        //dbug.text = "Received: " + msg;
-        //
-        //if (msg[0] != '1' || msg[0] != '2' || msg[0] != '3')
-        //    clientTxt.text += "\nClient " + msg + " has connected!";
-
-        if (socket.RemoteEndPoint.ToString() == clientSockets[1].RemoteEndPoint.ToString()) sendMsg = "1" + msg + " ";
-        else sendMsg = "2" + msg + " ";
-
-        sendBuffer = new byte[512];
-        sendBuffer = Encoding.ASCII.GetBytes(sendMsg);
+        string indicator = msg.Split('\\')[0];
 
         foreach (var soc in clientSockets)
         {
-            Console.WriteLine("Sending '{0}' to: " + soc.RemoteEndPoint.ToString(), sendMsg);
-            soc.BeginSend(sendBuffer, 0, sendBuffer.Length, 0, new AsyncCallback(SendCallBack), soc);
+            // if it's a gameplay message, send only to second player
+            if (indicator == "!" || indicator == "@")
+            {
+                if (soc.RemoteEndPoint != socket.RemoteEndPoint)
+                    soc.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(SendCallBack), soc);
+            }
+            else
+            { // its a chat message so send to all
+                //Debug.Log("Sending message to all, currently: " + soc.RemoteEndPoint);
+                soc.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(SendCallBack), soc);
+            }
         }
 
-        //sendMsg = "";
         socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(ReceiveCallBack), socket);
     }
 
@@ -148,11 +157,6 @@ public class CreateServer : MonoBehaviour
         Socket socket = (Socket)result.AsyncState;
         socket.EndSend(result);
     }
-    #endregion
-
-    #region UDP
-
-
     #endregion
 
     public void EndServer()

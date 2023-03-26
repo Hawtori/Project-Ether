@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         if (!isActive) { Falling(); return; }
-        Inputs();
+        if(Time.timeScale != 0) Inputs();
 
         if (ammoDisplay != null)
             ammoDisplay.SetText(bulletsLeft + " / " + Mathf.Max(totalBullets, 0));
