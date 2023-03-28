@@ -7,6 +7,7 @@ using TMPro;
 public class Weapon : MonoBehaviour
 {
     public bool isActive;
+    public bool freezeAnims;
 
     //Bullet 
     public GameObject bullet;
@@ -67,6 +68,7 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
+        if(freezeAnims)
         anim.speed = 1;
         Invoke("CanShoot", equipTime);
     }
@@ -174,6 +176,7 @@ public class Weapon : MonoBehaviour
         
     private void ResetTrigger()
     {
+        if(freezeAnims)
         anim.speed = 0f;
         anim.ResetTrigger("Shot");
     }
@@ -200,14 +203,14 @@ public class Weapon : MonoBehaviour
 
         if (shooting && !reloading)
         {
-            spreadIncreaseY += spreadIncreaseDelta;
+            spreadIncreaseY += spreadIncreaseDelta * recoilForce * Time.deltaTime;
             resetSpreadTime += Time.deltaTime;
             spreadIncreaseDelta += Time.deltaTime / 3f;
             spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
         }
         else
         {
-            spreadIncreaseY -= spreadIncreaseDelta / 1.5f;
+            spreadIncreaseY -= spreadIncreaseDelta / 1.5f * recoilForce * Time.deltaTime;
             resetSpreadTime -= Time.deltaTime;
             bulletsShot -= Time.deltaTime;
             spreadIncreaseDelta -= Time.deltaTime;
@@ -262,6 +265,7 @@ public class Weapon : MonoBehaviour
         if(anim != null)
         {
             anim.SetBool("Reload", false);
+            if(freezeAnims)
             anim.speed = 0;
         }
         totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 175);

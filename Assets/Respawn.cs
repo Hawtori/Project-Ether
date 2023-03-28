@@ -17,7 +17,7 @@ public class Respawn : MonoBehaviour
         
     if (Input.GetKeyDown(KeyCode.BackQuote))
          {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(2);
              //Application.LoadLevel(3);
          }
 

@@ -26,10 +26,10 @@ public class PositionUpdate : MonoBehaviour
     private bool flag = true;
 
     private Vector2 inputs;
-    private Vector3 position;
     private Vector3 remotePosition;
-    private Vector3 velocity;
+    private Vector3 remoteRotation;
     private Vector3 remoteVelocity;
+    private float remoteHealth = 4;
 
     private void Awake()
     {
@@ -39,6 +39,12 @@ public class PositionUpdate : MonoBehaviour
 
     private void Start()
     {
+        if(NetInfo.Instance == null)
+        {
+            Destroy(this);
+            return;
+        } 
+
         serverEP = new IPEndPoint(IPAddress.Any, 0);
         remoteEP = new IPEndPoint(IPAddress.Parse(NetInfo.Instance.GetIP()), NetInfo.Instance.GetUDPPort());
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -61,33 +67,44 @@ public class PositionUpdate : MonoBehaviour
     private void FixedUpdate()
     {
         remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
+        remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
         remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
+        remotePlayer.GetComponent<Health>().SetHealth(remoteHealth);
     }
 
-    private void ReceiveUpdates() // good now
+    private void ReceiveUpdates()
     {
         while (true)
         {
             byte[] recbuff = new byte[512];
-            int recv = socket.ReceiveFrom(recbuff, ref serverEP);
+            _ = socket.ReceiveFrom(recbuff, ref serverEP);
 
             recvMsg = Encoding.ASCII.GetString(recbuff);
 
-            string[] msg = recvMsg.Split(',');
+            string[] msg = recvMsg.Split('^');
+            string[] bPos = msg[0].Split(',');
+            string[] bRot = msg[1].Split(',');
+            string[] bVel = msg[2].Split(',');
+            remoteHealth = float.Parse(msg[3]);
+
             float[] pos = new float[3];
+            float[] rot = new float[3];
             float[] vel = new float[3];
             
             for(int i = 0; i < 3; i++)
-                pos[i] = float.Parse(msg[i]);
-            for (int i = 0, j = 3; i < 3; i++)
-                vel[i] = float.Parse(msg[j]);
+            {
+                pos[i] = float.Parse(bPos[i]);
+                rot[i] = float.Parse(bRot[i]);
+                vel[i] = float.Parse(bVel[i]);
+            }
 
             remotePosition = new Vector3(pos[0], pos[1], pos[2]);
+            remoteRotation = new Vector3(rot[0], rot[1], rot[2]);
             remoteVelocity = new Vector3(vel[0], vel[1], vel[2]);
         }
     }
 
-    IEnumerator SendUpdates() // should be good
+    IEnumerator SendUpdates()
     {
         while (true)
         {
@@ -95,11 +112,12 @@ public class PositionUpdate : MonoBehaviour
             if (!flag) continue;
 
             buffer = new byte[512];
-            sendMsg = "";
             Rigidbody rb = localPlayer.GetComponent<Rigidbody>();
 
-            sendMsg += localPlayer.transform.position.x + ", " + localPlayer.transform.position.y + ", " + localPlayer.transform.position.z;
-            sendMsg += ", " + rb.velocity.x + ", " + rb.velocity.y + ", " + rb.velocity.z;
+            sendMsg = localPlayer.transform.position.x + "," + localPlayer.transform.position.y + "," + localPlayer.transform.position.z;         // position
+            sendMsg += "^" + localPlayer.transform.rotation.x + "," + localPlayer.transform.rotation.y + "," + localPlayer.transform.rotation.z;  // rotation
+            sendMsg += "^" + rb.velocity.x + "," + rb.velocity.y + "," + rb.velocity.z;                                                           // velocity
+            sendMsg += "^" + localPlayer.gameObject.GetComponent<hurtplayer>().hitPoint.ToString();                                               // health
 
             buffer = Encoding.ASCII.GetBytes(sendMsg);
 

@@ -114,7 +114,8 @@ public class CreateServer : MonoBehaviour
 
         foreach(var client in clientSockets)
         {
-            sendMsg = "FROM SERVER Client: " + client.RemoteEndPoint;
+            string m = "4^" + (DateTime.Now.Millisecond).ToString();
+            client.Send(Encoding.ASCII.GetBytes(m));
             //Debug.Log("Client : " + client.RemoteEndPoint);
             //Dbuggr.instance.AddText("client: " + client.RemoteEndPoint);
         }
@@ -129,10 +130,12 @@ public class CreateServer : MonoBehaviour
         int recv = socket.EndReceive(result);
         byte[] data = new byte[recv];
 
-        Array.Copy(buffer, data, recv);
+        //Array.Copy(buffer, data, recv);
 
-        string msg = Encoding.ASCII.GetString(data);
-        string indicator = msg.Split('\\')[0];
+        string msg = Encoding.ASCII.GetString(buffer);
+        string indicator = msg.Split('^')[0];
+
+        Debug.Log("Received message: " + msg);
 
         foreach (var soc in clientSockets)
         {
@@ -148,7 +151,7 @@ public class CreateServer : MonoBehaviour
                 soc.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(SendCallBack), soc);
             }
         }
-
+        buffer = new byte[512];
         socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(ReceiveCallBack), socket);
     }
 
@@ -158,6 +161,11 @@ public class CreateServer : MonoBehaviour
         socket.EndSend(result);
     }
     #endregion
+
+    private void OnApplicationQuit()
+    {
+        EndServer();
+    }
 
     public void EndServer()
     {

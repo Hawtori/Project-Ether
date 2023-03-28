@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5.5
-  aliveTime: 0.25
+  aliveTime: 0.15
 --- !u!96 &-6495901749673791162
 TrailRenderer:
   serializedVersion: 3

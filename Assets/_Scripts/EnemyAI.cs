@@ -93,8 +93,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Chase()
     {
-       // goVentCountdown = 10.0f;
-        agent.SetDestination(player.position);
+        // goVentCountdown = 10.0f;
+        if (CheckIfOnNavMesh())
+            agent.SetDestination(player.position);
+        else Debug.Log("Agent " + transform.name + " is not on a navmesh");
     }
 
     /*
