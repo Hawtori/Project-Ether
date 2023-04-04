@@ -17,9 +17,9 @@ public class FillBlanksMenu : MonoBehaviour
         if (NetInfo.Instance.GetClientNum() == 0)
         {
             //disable start button and update text
-            Debug.Log("Client 0, disable stuff");
-            startButton.SetActive(false);
-            clientList.SetActive(false);
+            Debug.Log("Client not 0, disable stuff");
+            startButton.SetActive(true);
+            clientList.SetActive(true);
         }
     }
 }

@@ -41,15 +41,6 @@ public class CreateServer : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()
-    {
-        if(sendMsg != "")
-        {
-            //Dbuggr.instance.AddText(sendMsg);
-            sendMsg = "";
-        }
-    }
-
     public void Server()
     {
         StartCoroutine(StartServer());
@@ -145,9 +136,9 @@ public class CreateServer : MonoBehaviour
                 if (soc.RemoteEndPoint != socket.RemoteEndPoint)
                     soc.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(SendCallBack), soc);
             }
-            else
+            else if (indicator == "1" || indicator == "2" || indicator == "3" || indicator == "4" || indicator == "5" || indicator == "0")
             { // its a chat message so send to all
-                //Debug.Log("Sending message to all, currently: " + soc.RemoteEndPoint);
+                Debug.Log("Sending message to all, currently: " + soc.RemoteEndPoint);
                 soc.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(SendCallBack), soc);
             }
         }

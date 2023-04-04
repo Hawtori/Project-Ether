@@ -11,9 +11,11 @@ public class WeaponInventory : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> guns;
-    private int activeGunIndex = 1;
+    public int activeGunIndex = 0;
 
     public PlayerMovement player;
+
+    public Animator armsAnim;
 
     private void Start()
     {
@@ -99,16 +101,29 @@ public class WeaponInventory : MonoBehaviour
             guns[i].GetComponent<Weapon>().CancelReload();
             if (i == activeGunIndex)
             {
+                guns[i].GetComponent<Animator>().speed = 1;
                 guns[i].SetActive(true);
                 //guns[i].transform.localPosition = Vector3.zero;
                 //guns[i].transform.localRotation = Quaternion.identity;
                 guns[i].GetComponent<Weapon>().enabled = true;
+                string name = guns[i].name + "Equip";
+                Invoke("ResetArms", 0.25f);
+                armsAnim.SetBool(name, true);
                 continue;
             }
             guns[i].GetComponent<Weapon>().enabled = false;
             guns[i].SetActive(false);
         }
 
+    }
+
+
+    private void ResetArms()
+    {
+        armsAnim.SetBool("KnifeEquip", false);
+        armsAnim.SetBool("KnifeShoot", false);
+        armsAnim.SetBool("PistolEquip", false);
+        armsAnim.SetBool("AKEquip", false);
     }
 
 }

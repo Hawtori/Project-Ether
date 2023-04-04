@@ -40,6 +40,10 @@ public class Client : MonoBehaviour
     private int indicator = -1;
     private string msg = "";
 
+    private bool startGame = false;
+
+    private Queue<Action> executionQ = new Queue<Action>();
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -47,8 +51,10 @@ public class Client : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()
+    private void UpdateObsolete()
     {
+        if (startGame) StartCoroutine(StartGame());
+
         if (indicator == -1) return;
         //Dbuggr.instance.AddText(indicator.ToString() + msg);
         switch (indicator)
@@ -57,7 +63,7 @@ public class Client : MonoBehaviour
                 // client joining message
                 //Dbuggr.instance.AddText(indicator.ToString() + msg);
                 indicator = -1;
-                //clientsText.text += msg + '\n';
+                clientsText.text += msg + '\n';
                 msg = "";
                 break;
             case 1:
@@ -70,8 +76,20 @@ public class Client : MonoBehaviour
             case 4:
                 // set seed
                 indicator = -1;
-                Debug.Log("Setting seed " + msg);
-                NetInfo.Instance.SetSeed(int.Parse(msg));
+                Debug.Log("Setting seed " + int.Parse(msg));
+                int seed;
+                if (int.TryParse(msg, out seed))
+                {
+                    NetInfo.Instance.SetSeed(seed);
+                }
+                else
+                {
+                    Debug.Log("Setting seed to 0");
+                    NetInfo.Instance.SetSeed(0);
+                }
+                //NetInfo.Instance.SetSeed(
+                //    int.Parse(
+                //        msg)); // if i don't split this up then it gives an error idk why 
                 Debug.Log("Done setting seed");
                 msg = "";
                 break;
@@ -84,6 +102,12 @@ public class Client : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void Update()
+    {
+        if (executionQ.Count < 1) return;
+        executionQ.Dequeue().Invoke();
     }
 
     // on click join
@@ -140,18 +164,28 @@ public class Client : MonoBehaviour
         Socket socket = (Socket)result.AsyncState;
         int recv = socket.EndReceive(result);
 
+        Debug.Log("FROM CLIENT Received number : " + recv);
+
         string msg = Encoding.ASCII.GetString(receiveBuffer);
+        if (!msg.Contains('^')) goto restartCallBack;
         string[] split = msg.Split('^');
 
         //this.msg = "FROM CLIENT " + split[1];
         Debug.Log("FROM CLIENT Received indicator: " + split[0] + " with message: " + split[1]);
         //Dbuggr.instance.AddText("FROM CLIENT Received message: " + split[1]);
 
+        if (split[0] == "$")
+        {
+            NetInfo.Instance.SetClient(int.Parse(split[1]));
+        }
+
         // game start indication
         if (split[0] == "5")
         {
             Debug.Log("Starting game");
-            UnityMainThread.Instance().Enqueue(() => SceneManager.LoadScene(2));
+            //startGame = true;
+            executionQ.Enqueue(StartGameFunc);
+            //UnityMainThread.Instance().Enqueue(() => SceneManager.LoadSceneAsync(2));
             Debug.Log("done Starting game");
             indicator = 5;
         }
@@ -161,14 +195,16 @@ public class Client : MonoBehaviour
         {
             indicator = 0;
             this.msg = split[1];
+            executionQ.Enqueue(AppendTextJoining);
         }
 
         // text messages for chat
         if (split[0] == "1" || split[0] == "2" || split[0] == "3")
         {
             // send to chat handler
-            indicator = int.Parse(split[0]);
-            this.msg = split[1];
+            //indicator = int.Parse(split[0]);
+            //this.msg = split[1];
+            //executionQ.Enqueue(UpdateTextChat);
             // chathandler.instance.addText(split[1]);
         }
 
@@ -177,6 +213,7 @@ public class Client : MonoBehaviour
         {
             indicator = 4;
             this.msg = split[1];
+            executionQ.Enqueue(SetSeed);
         }
             //Debug.Log("Setting seed: " + split[1]);
         // enemy damaged
@@ -191,14 +228,46 @@ public class Client : MonoBehaviour
         {
             // change somethinga bout game 
         }
-
+restartCallBack:
         receiveBuffer = new byte[512];
-        Debug.Log("ROM CLIENT Restarting receive");
+        Debug.Log("FROM CLIENT Restarting receive");
         client.BeginReceive(receiveBuffer, 0, receiveBuffer.Length, 0, new AsyncCallback(ReceiveCallBack), client);
+    }
+
+    private void StartGameFunc()
+    {
+        Debug.Log("Starting game in the function");
+        SceneManager.LoadScene(1);
+    }
+
+    private void AppendTextJoining()
+    {
+        clientsText.text += msg + '\n';
+    }
+
+    private void SetSeed()
+    {
+        int seed;
+        if (int.TryParse(msg, out seed))
+        {
+            NetInfo.Instance.SetSeed(seed);
+        }
+        else
+        {
+            Debug.Log("Setting seed to 0");
+            NetInfo.Instance.SetSeed(0);
+        }
+    }
+
+    private void UpdateTextChat()
+    {
+
     }
 
     private IEnumerator StartGame()
     {
+        Debug.Log("Starting game corout");
+        startGame = false;
         yield return null;
         SceneManager.LoadScene(2);
     }
@@ -225,45 +294,5 @@ public class Client : MonoBehaviour
     {
         client.Shutdown(SocketShutdown.Both);
         client.Close();
-    }
-}
-
-public class UnityMainThread : MonoBehaviour
-{
-    private static UnityMainThread instance;
-    private readonly Queue<Action> executionQueue = new Queue<Action>();
-
-    public static UnityMainThread Instance()
-    {
-        if (!instance)
-        {
-            instance = FindObjectOfType<UnityMainThread>();
-            if (!instance)
-            {
-                var go = new GameObject("UnityMainThread");
-                instance = go.AddComponent<UnityMainThread>();
-            }
-        }
-
-        return instance;
-    }
-
-    private void Update()
-    {
-        lock (executionQueue)
-        {
-            while (executionQueue.Count > 0)
-            {
-                executionQueue.Dequeue().Invoke();
-            }
-        }
-    }
-
-    public void Enqueue(Action action)
-    {
-        lock (executionQueue)
-        {
-            executionQueue.Enqueue(action);
-        }
     }
 }
