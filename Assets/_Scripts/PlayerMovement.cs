@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
 
     //assignables
     [SerializeField]
@@ -49,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-
+        if (Instance == null) Instance = this;
+        else Destroy(this);
         rb = GetComponent<Rigidbody>();
     }
 

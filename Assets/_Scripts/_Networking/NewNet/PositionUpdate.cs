@@ -60,7 +60,7 @@ public class PositionUpdate : MonoBehaviour
 
     private void Update()
     {
-        //inputs = PlayerMovement.instance.GetMovement();
+        inputs = PlayerMovement.Instance.GetMovement();
         if (inputs.magnitude > 0) flag = true;
     }
 
@@ -85,7 +85,15 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
-            remoteHealth = float.Parse(msg[3]);
+            try
+            {
+                remoteHealth = float.Parse(msg[3]);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e + " : " + msg[3]);
+                remoteHealth = 1;
+            }
 
             float[] pos = new float[3];
             float[] rot = new float[3];
@@ -101,6 +109,8 @@ public class PositionUpdate : MonoBehaviour
             remotePosition = new Vector3(pos[0], pos[1], pos[2]);
             remoteRotation = new Vector3(rot[0], rot[1], rot[2]);
             remoteVelocity = new Vector3(vel[0], vel[1], vel[2]);
+
+            Debug.Log("Received: " + remotePosition + " : " + remoteRotation);
         }
     }
 
@@ -120,6 +130,8 @@ public class PositionUpdate : MonoBehaviour
             sendMsg += "^" + localPlayer.gameObject.GetComponent<hurtplayer>().hitPoint.ToString();                                               // health
 
             buffer = Encoding.ASCII.GetBytes(sendMsg);
+
+            Debug.Log("Sending: " + sendMsg);
 
             socket.SendTo(buffer, remoteEP);
             flag = false;
