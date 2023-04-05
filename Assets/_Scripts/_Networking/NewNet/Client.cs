@@ -176,7 +176,8 @@ public class Client : MonoBehaviour
 
         if (split[0] == "$")
         {
-            NetInfo.Instance.SetClient(int.Parse(split[1]));
+            clientNum = int.Parse(split[1]);
+            executionQ.Enqueue(SetClient);
         }
 
         // game start indication
@@ -221,12 +222,15 @@ public class Client : MonoBehaviour
         {
             // damage enemy
             // enemylist.damage enemy at int.parse(split[1]) for float.parse(split[2])
+            enemyIndex.index = int.Parse(split[1]);
+            enemyIndex.damage = float.Parse(split[2]);
+            executionQ.Enqueue(DamageEnemy);
         }
 
         // game state changed 
         if (split[0] == "@")
         {
-            // change somethinga bout game 
+            // change something about game 
         }
 restartCallBack:
         receiveBuffer = new byte[512];
@@ -238,6 +242,20 @@ restartCallBack:
     {
         Debug.Log("Starting game in the function");
         SceneManager.LoadScene(1);
+    }
+    private int clientNum;
+    private void SetClient()
+    {
+        NetInfo.Instance.SetClient(clientNum);
+    }
+
+    private EnemyIndex enemyIndex = new EnemyIndex();
+
+    private void DamageEnemy()
+    {
+        if(enemyIndex.index != -1 && EnemyManager.instance != null)
+        EnemyManager.instance.DamageEnemy(enemyIndex.index, enemyIndex.damage);
+        enemyIndex.ResetVar();
     }
 
     private void AppendTextJoining()
@@ -272,18 +290,6 @@ restartCallBack:
         SceneManager.LoadScene(2);
     }
 
-    private IEnumerator AppentText(string m)
-    {
-        yield return null;
-        clientsText.text += m + '\n';
-    }
-
-    private IEnumerator SetGameSeed(int n)
-    {
-        yield return null;
-        NetInfo.Instance.SetSeed(n);
-    }
-
     public void SendMessageTCP(string msg)
     {
         byte[] send = Encoding.ASCII.GetBytes(msg);
@@ -294,5 +300,17 @@ restartCallBack:
     {
         client.Shutdown(SocketShutdown.Both);
         client.Close();
+    }
+
+    private struct EnemyIndex
+    {
+        public int index;
+        public float damage;
+
+        public void ResetVar()
+        {
+            index = -1;
+            damage = 0;
+        }
     }
 }

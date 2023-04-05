@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
-using Unity.IO.LowLevel.Unsafe;
 
 public class Weapon : MonoBehaviour
 {
@@ -256,6 +255,8 @@ public class Weapon : MonoBehaviour
         }
         reloading = true;
         Invoke("ReloadFinish", reloadTime);
+        Invoke("EndArmsReload", reloadTime/2f);
+
     }
 
     public void CancelReload()
@@ -276,12 +277,20 @@ public class Weapon : MonoBehaviour
         totalBullets += ammo;
     }
 
+    private void EndArmsReload()
+    {
+         string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, false);
+    }
+
     private void ReloadFinish()
     {
         //GetComponent<Renderer>().material.color = Color.white;
         if(anim != null)
         {
             anim.ResetTrigger("Reload");
+            string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, false);
             //if(!isKinfe)
             //anim.speed = 0;
         }
