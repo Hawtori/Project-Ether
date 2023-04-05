@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        
+
         player = GameObject.Find("Player").transform;
         //ventMaster = GameObject.Find("VentMaster");
         //vents = ventMaster.GetComponentsInChildren<Transform>();
@@ -60,8 +64,9 @@ public class EnemyAI : MonoBehaviour
     {
         if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet)
+        if (CheckIfOnNavMesh() && walkPointSet)
             agent.SetDestination(walkPoint);
+   
 
         Vector3 disToWalkPoint = transform.position - walkPoint;
 
@@ -75,6 +80,9 @@ public class EnemyAI : MonoBehaviour
     }
     private void SearchWalkPoint()
     {
+        // testing random
+        if (NetInfo.Instance != null) Random.InitState(NetInfo.Instance.GetSeed());
+
         float randomZ = Random.Range(-wpRange, wpRange);
         float randomX = Random.Range(-wpRange, wpRange);
 
@@ -85,8 +93,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Chase()
     {
-       // goVentCountdown = 10.0f;
-        agent.SetDestination(player.position);
+        // goVentCountdown = 10.0f;
+        if (CheckIfOnNavMesh())
+            agent.SetDestination(player.position);
+        else Debug.Log("Agent " + transform.name + " is not on a navmesh");
     }
 
     /*
@@ -144,4 +154,7 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, visionRadius);
         Gizmos.DrawRay(transform.position, transform.forward * 4f);
     }
+
+    NavMeshHit navHit;
+    private bool CheckIfOnNavMesh() => NavMesh.SamplePosition(agent.transform.position, out navHit, 0.1f, NavMesh.AllAreas);
 }

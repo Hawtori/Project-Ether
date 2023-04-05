@@ -41,6 +41,7 @@ public class Oxygen : MonoBehaviour
         currentAir -= depleteAmount * multiplier;
         if(currentAir < 0)
         {
+            Debug.Log("Oxygen has been depleted!");
             GetComponent<hurtplayer>().TakeDamage(1);
             currentAir = 0;
         }

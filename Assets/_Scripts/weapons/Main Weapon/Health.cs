@@ -38,6 +38,11 @@ public class Health : MonoBehaviour
         GetComponent<Renderer>().material.color = initColor;
     }
 
+    public void SetHealth(float h)
+    {
+        health = h;
+    }
+
     //object pooling
     private void Die()
     {

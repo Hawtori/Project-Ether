@@ -7,6 +7,7 @@ using TMPro;
 public class Weapon : MonoBehaviour
 {
     public bool isActive;
+    public bool isKinfe;
 
     //Bullet 
     public GameObject bullet;
@@ -45,6 +46,7 @@ public class Weapon : MonoBehaviour
 
     //animations
     private Animator anim;
+    public Animator armsAnim;
 
     public PlayerMovement playerReference;
 
@@ -67,14 +69,14 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        anim.speed = 1;
+        //anim.speed = 1;
         Invoke("CanShoot", equipTime);
     }
 
     private void Update()
     {
         if (!isActive) { Falling(); return; }
-        Inputs();
+        if(Time.timeScale != 0) Inputs();
 
         if (ammoDisplay != null)
             ammoDisplay.SetText(bulletsLeft + " / " + Mathf.Max(totalBullets, 0));
@@ -129,6 +131,38 @@ public class Weapon : MonoBehaviour
 
         readyToShoot = false;
 
+        if (isKinfe)
+        {
+            Invoke("Bullet", 0.334f);
+            armsAnim.SetBool("KnifeShoot", true);
+            Invoke("ResetArms", 0.25f);
+        }
+        else
+            Bullet();
+        
+        if (anim != null)
+        {
+            anim.SetTrigger("Shot");
+            //anim.speed = 1f;
+            Invoke("ResetTrigger", 0.166f);
+        }
+
+        if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
+
+        if(!isKinfe)
+        bulletsLeft--;
+        bulletsShot++;
+
+        if (allowInvoke)
+        {
+            Invoke("ResetShot", timeBetweenShooting);
+            allowInvoke = false;
+        }
+
+    }
+
+    private void Bullet()
+    {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         //RaycastHit hit;
 
@@ -150,31 +184,13 @@ public class Weapon : MonoBehaviour
 
         //add forces
         currBullet.GetComponent<Rigidbody>().AddForce(targetDir.normalized * shootForce + transform.up * upwardForce, ForceMode.Impulse);
-        if(upwardForce > 0) currBullet.GetComponent<Rigidbody>().useGravity = true;
-
-        if(anim != null)
-        {
-            anim.SetTrigger("Shot");
-            anim.speed = 1f;
-            Invoke("ResetTrigger", 0.1f);
-        }
-
-        if (nuzzleFlash != null) Instantiate(nuzzleFlash, nuzzle.position, Quaternion.identity);
-
-        bulletsLeft--;
-        bulletsShot++;
-
-        if (allowInvoke)
-        {
-            Invoke("ResetShot", timeBetweenShooting);
-            allowInvoke = false;
-        }
-
+        if (upwardForce > 0) currBullet.GetComponent<Rigidbody>().useGravity = true;
     }
         
     private void ResetTrigger()
     {
-        anim.speed = 0f;
+        //if(!isKinfe)
+        //anim.speed = 0f;
         anim.ResetTrigger("Shot");
     }
 
@@ -200,14 +216,14 @@ public class Weapon : MonoBehaviour
 
         if (shooting && !reloading)
         {
-            spreadIncreaseY += spreadIncreaseDelta;
+            spreadIncreaseY += spreadIncreaseDelta * recoilForce * Time.deltaTime * 2f;
             resetSpreadTime += Time.deltaTime;
             spreadIncreaseDelta += Time.deltaTime / 3f;
             spreadIncreaseDelta = Mathf.Min(0.1f, spreadIncreaseDelta);
         }
         else
         {
-            spreadIncreaseY -= spreadIncreaseDelta / 1.5f;
+            spreadIncreaseY -= spreadIncreaseDelta / 3f * recoilForce * recoilForce * Time.deltaTime;
             resetSpreadTime -= Time.deltaTime;
             bulletsShot -= Time.deltaTime;
             spreadIncreaseDelta -= Time.deltaTime;
@@ -228,24 +244,29 @@ public class Weapon : MonoBehaviour
 
     private void Reload()
     {
-        GetComponent<Renderer>().material.color = Color.black;
+        if (isKinfe) return;
+        //GetComponent<Renderer>().material.color = Color.black;
         if(anim != null)
         {
             anim.ResetTrigger("Shot");
-            anim.SetBool("Reload", true);
-            anim.speed = 1;
+            anim.SetTrigger("Reload");
+            string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, true);
         }
         reloading = true;
         Invoke("ReloadFinish", reloadTime);
+        Invoke("EndArmsReload", reloadTime/2f);
+
     }
 
     public void CancelReload()
     {
-        GetComponent<Renderer>().material.color = Color.white;
+        //GetComponent<Renderer>().material.color = Color.white;
         if (anim != null)
         {
-            anim.SetBool("Reload", false);
-            anim.speed = 0;
+            anim.ResetTrigger("Reload");
+            string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, false);
         }
         reloading = false;
         CancelInvoke("ReloadFinish");
@@ -256,13 +277,22 @@ public class Weapon : MonoBehaviour
         totalBullets += ammo;
     }
 
+    private void EndArmsReload()
+    {
+         string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, false);
+    }
+
     private void ReloadFinish()
     {
-        GetComponent<Renderer>().material.color = Color.white;
+        //GetComponent<Renderer>().material.color = Color.white;
         if(anim != null)
         {
-            anim.SetBool("Reload", false);
-            anim.speed = 0;
+            anim.ResetTrigger("Reload");
+            string name = gameObject.name + "Reload";
+            armsAnim.SetBool(name, false);
+            //if(!isKinfe)
+            //anim.speed = 0;
         }
         totalBullets = Mathf.Clamp(totalBullets - magSize, 0 - magSize, 175);
         bulletsLeft = Mathf.Min(magSize, totalBullets + magSize);
@@ -284,6 +314,15 @@ public class Weapon : MonoBehaviour
         if(Physics.Raycast(transform.position, Vector3.down, 1f, layerMask))
             GetComponent<Rigidbody>().isKinematic = true;
         
+    }
+
+    private void ResetArms()
+    {
+        armsAnim.SetBool("KnifeEquip", false);
+        armsAnim.SetBool("KnifeShoot", false);
+        armsAnim.SetBool("PistolEquip", false);
+        armsAnim.SetBool("AKEquip", false);
+        armsAnim.SetBool("AKReload", false);
     }
 
 }

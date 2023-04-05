@@ -19,6 +19,7 @@ public class Bob : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
         if (player.velocity.magnitude < speedThreshold) timer = 0f;
         else timer += bobSpeed;
 
@@ -26,10 +27,16 @@ public class Bob : MonoBehaviour
 
         waveSlice = Mathf.Sin(timer);
 
+        float x, y, total;
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
+
+        total = Mathf.Abs(x) + Mathf.Abs(y);
+
         if (waveSlice != 0)
         {
             float change = waveSlice * bobAmount;
-            float t = Mathf.Clamp01(player.velocity.magnitude);
+            float t = Mathf.Clamp01(total);
             change *= t;
             yPos = midPpoint + change;
             Vector3 pos = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
