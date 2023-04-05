@@ -117,6 +117,11 @@ public class WeaponInventory : MonoBehaviour
 
     }
 
+    public void ResetAmmo()
+    {
+        for(int i = 0; i < guns.Count; i++)
+            guns[i].GetComponent <Weapon>().PickUpAmmo(210);
+    }
 
     private void ResetArms()
     {

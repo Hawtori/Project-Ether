@@ -50,6 +50,8 @@ public class Weapon : MonoBehaviour
 
     public PlayerMovement playerReference;
 
+    private int maxBullets;
+
     private float LerpF(float a, float b, float t)
     {
         return a + (b - a) * t;
@@ -65,6 +67,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         Invoke("CanShoot", equipTime);
+        maxBullets = totalBullets;
     }
 
     private void OnEnable()
@@ -252,10 +255,10 @@ public class Weapon : MonoBehaviour
             anim.SetTrigger("Reload");
             string name = gameObject.name + "Reload";
             armsAnim.SetBool(name, true);
+            Invoke("EndArmsReload", reloadTime/2f);
         }
         reloading = true;
         Invoke("ReloadFinish", reloadTime);
-        Invoke("EndArmsReload", reloadTime/2f);
 
     }
 
@@ -275,6 +278,7 @@ public class Weapon : MonoBehaviour
     public void PickUpAmmo(int ammo)
     {
         totalBullets += ammo;
+        totalBullets = Mathf.Clamp(totalBullets, 0, maxBullets);
     }
 
     private void EndArmsReload()

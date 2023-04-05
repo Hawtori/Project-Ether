@@ -155,6 +155,7 @@ public class RayCastInteraction : MonoBehaviour
     {
 
         rayCasting();
+        if(lastHit != null)
         rayCastDoor();
       //  rayCastItems();
         raycastThreeButton();
