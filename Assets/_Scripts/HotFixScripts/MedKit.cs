@@ -17,6 +17,8 @@ public class MedKit : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<hurtplayer>().TakeDamage(-healthValue);
+            other.GetComponent<Oxygen>().IncreaseAir(healthValue * 25f);
+            
             Destroy(gameObject);   
             
         }

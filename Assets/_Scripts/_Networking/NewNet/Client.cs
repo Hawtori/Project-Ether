@@ -203,9 +203,9 @@ public class Client : MonoBehaviour
         if (split[0] == "1" || split[0] == "2" || split[0] == "3")
         {
             // send to chat handler
-            //indicator = int.Parse(split[0]);
-            //this.msg = split[1];
-            //executionQ.Enqueue(UpdateTextChat);
+            indicator = int.Parse(split[0]);
+            this.msg = split[1];
+            executionQ.Enqueue(UpdateTextChat);
             // chathandler.instance.addText(split[1]);
         }
 
