@@ -10,7 +10,7 @@ public class Oxygen : MonoBehaviour
 
     public float recoverySpeed;
 
-    private float currentAir;
+    public float currentAir;
     private float multiplier = 1;
 
 

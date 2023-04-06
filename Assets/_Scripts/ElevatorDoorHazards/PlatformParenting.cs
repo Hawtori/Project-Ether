@@ -25,7 +25,7 @@ private void OnCollisionEnter(Collision other) {
 
 private void OnCollisionExit(Collision other) {
     if(other.transform.tag == "Player"){
-        other.transform.SetParent(GameObject.Find("===Player===").transform);
+        other.transform.SetParent(GameObject.Find("Player_Interact").transform);
           
         
     }
