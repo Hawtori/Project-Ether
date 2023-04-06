@@ -279,7 +279,7 @@ restartCallBack:
 
     private void UpdateTextChat()
     {
-
+        ChatHandler.instance.ReceiveMessage(msg);
     }
 
     private IEnumerator StartGame()
