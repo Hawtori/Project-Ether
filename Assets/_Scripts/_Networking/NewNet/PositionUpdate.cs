@@ -90,19 +90,17 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
-<<<<<<< Updated upstream
+
                 Debug.LogWarning(" > " + msg[3][0]);
             try
             {
-                remoteHealth = float.Parse(msg[3]);
+                remoteHealth = int.Parse(msg[3]);
             }
             catch (Exception e)
             {
                 remoteHealth = 1;
             }
-=======
             remoteHealth = int.Parse(msg[3]);
->>>>>>> Stashed changes
 
             float[] pos = new float[3];
             float[] rot = new float[3];
