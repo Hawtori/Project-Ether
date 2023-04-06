@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="152968626" Type="User" Language="SFX" Hash="{1E46686D-98F2-BB83-BB59-7E195F85FFA6}">
+		<SoundBank Id="152968626" Type="User" Language="SFX" Hash="{F1872C1C-3547-FE33-40CF-812F27C8BD3A}">
 			<ShortName>SB_Main</ShortName>
 			<Path>SB_Main.bnk</Path>
 			<Media>
@@ -21,13 +21,25 @@
 					<ShortName>PauseMenu.wav</ShortName>
 					<CachePath>SFX/PauseMenu_D79FB2B7.wem</CachePath>
 				</File>
-				<File Id="324332427" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>mixkit-short-laser-gun-shot-1670.wav</ShortName>
-					<CachePath>SFX/mixkit-short-laser-gun-shot-1670_10C4C929.wem</CachePath>
+				<File Id="125174003" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpiderGrowl1.wav</ShortName>
+					<CachePath>SFX/SpiderGrowl1_10C4C929.wem</CachePath>
+				</File>
+				<File Id="324099473" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpiderGrowl4.wav</ShortName>
+					<CachePath>SFX/SpiderGrowl4_10C4C929.wem</CachePath>
+				</File>
+				<File Id="353088973" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Elevator.wav</ShortName>
+					<CachePath>SFX/Elevator_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="390210900" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>unstable-nuclear-reactor-63624.wav</ShortName>
 					<CachePath>SFX/unstable-nuclear-reactor-63624_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="412456205" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>EnemyGroan.wav</ShortName>
+					<CachePath>SFX/EnemyGroan_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="480963761" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>vent_3-36759.wav</ShortName>
@@ -41,6 +53,10 @@
 					<ShortName>ny-steam-radiator-19157.wav</ShortName>
 					<CachePath>SFX/ny-steam-radiator-19157_D79FB2B7.wem</CachePath>
 				</File>
+				<File Id="657827309" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpiderGrowl5.wav</ShortName>
+					<CachePath>SFX/SpiderGrowl5_10C4C929.wem</CachePath>
+				</File>
 				<File Id="765157427" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>muffled-pipe-draining-32374.wav</ShortName>
 					<CachePath>SFX/muffled-pipe-draining-32374_D79FB2B7.wem</CachePath>
@@ -49,32 +65,93 @@
 					<ShortName>rifle-clip-empty-98832.wav</ShortName>
 					<CachePath>SFX/rifle-clip-empty-98832_0E2E5CFB.wem</CachePath>
 				</File>
+				<File Id="854897808" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpiderGrowl2.wav</ShortName>
+					<CachePath>SFX/SpiderGrowl2_10C4C929.wem</CachePath>
+				</File>
+				<File Id="859509729" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Gunshot.wav</ShortName>
+					<CachePath>SFX/Gunshot_10C4C929.wem</CachePath>
+				</File>
+				<File Id="894397637" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MonsterGroan2.wav</ShortName>
+					<CachePath>SFX/MonsterGroan2_D79FB2B7.wem</CachePath>
+				</File>
+				<File Id="900432617" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbientGrowl.wav</ShortName>
+					<CachePath>SFX/AmbientGrowl_D79FB2B7.wem</CachePath>
+				</File>
 				<File Id="944381938" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>phoenixscreech1-107784.wav</ShortName>
 					<CachePath>SFX/phoenixscreech1-107784_D79FB2B7.wem</CachePath>
 				</File>
+				<File Id="964413925" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpiderGrowl3.wav</ShortName>
+					<CachePath>SFX/SpiderGrowl3_10C4C929.wem</CachePath>
+				</File>
 			</Media>
 			<Plugins>
 				<ShareSets>
+					<Plugin Id="86245554" Name="Attack_Remover" LibName="Wwise Compressor" LibId="7077891"/>
+					<Plugin Id="535667444" Name="Bathroom1" LibName="Wwise Matrix Reverb" LibId="7536643"/>
 					<Plugin Id="701863527" Name="Inside_My_Head" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="702543456" Name="Tunnel1" LibName="Wwise Matrix Reverb" LibId="7536643"/>
 					<Plugin Id="1008402193" Name="Low_Pass_20KHz" LibName="Wwise Parametric EQ" LibId="6881283"/>
 					<Plugin Id="1416967478" Name="All_Buttons_IN" LibName="Wwise Compressor" LibId="7077891"/>
 					<Plugin Id="1431265797" Name="Monsterize" LibName="Wwise Pitch Shifter" LibId="8912899"/>
 					<Plugin Id="2648499661" Name="Hall_Medium_Dark" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="2652646462" Name="Dialog_Leveler_Soft" LibName="Wwise Compressor" LibId="7077891"/>
 					<Plugin Id="3442768367" Name="Hall_Large_Dark" LibName="Wwise RoomVerb" LibId="7733251"/>
 					<Plugin Id="3948262040" Name="Octave_Down" LibName="Wwise Pitch Shifter" LibId="8912899"/>
 				</ShareSets>
 			</Plugins>
 			<Events>
+				<Event Id="2383804976" Name="AmbientGrowlPlay" MaxAttenuation="120" DurationType="OneShot" DurationMin="5.153854" DurationMax="5.153854">
+					<MediaRefs>
+						<MediaRef Id="900432617"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="702543456"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
+				<Event Id="3705378287" Name="Elevator" DurationType="OneShot" DurationMin="11.10577" DurationMax="11.10577">
+					<MediaRefs>
+						<MediaRef Id="353088973"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="86245554"/>
+							<PluginRef Id="535667444"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 				<Event Id="1095758322" Name="EmptyGun" DurationType="OneShot" DurationMin="0.53149796" DurationMax="0.53149796">
 					<MediaRefs>
 						<MediaRef Id="821363666"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="1287408361" Name="GunShot" DurationType="OneShot" DurationMin="0.9249887" DurationMax="0.9249887">
+				<Event Id="3910827136" Name="Growl" MaxAttenuation="80" DurationType="OneShot" DurationMin="0" DurationMax="3.4519374">
 					<MediaRefs>
-						<MediaRef Id="324332427"/>
+						<MediaRef Id="412456205"/>
+						<MediaRef Id="894397637"/>
 					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="535667444"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
+				<Event Id="1287408361" Name="GunShot" DurationType="OneShot" DurationMin="0.6538333" DurationMax="0.6538333">
+					<MediaRefs>
+						<MediaRef Id="859509729"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="2652646462"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="190747137" Name="HallwayAmbientPlay" DurationType="OneShot" DurationMin="396.216" DurationMax="396.216">
 					<MediaRefs>
@@ -138,6 +215,15 @@
 						</ShareSets>
 					</PluginRefs>
 				</Event>
+				<Event Id="2150865033" Name="SpiderGrowl" DurationType="OneShot" DurationMin="1.6153958" DurationMax="1.7980624">
+					<MediaRefs>
+						<MediaRef Id="125174003"/>
+						<MediaRef Id="324099473"/>
+						<MediaRef Id="657827309"/>
+						<MediaRef Id="854897808"/>
+						<MediaRef Id="964413925"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3284699527" Name="Stop_Sound_Main" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="1210304830" Name="VentAmbientPlay" DurationType="OneShot" DurationMin="2.4555101" DurationMax="2.4555101">
 					<MediaRefs>
@@ -161,7 +247,7 @@
 				</StateGroup>
 			</StateGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{666C227C-2A77-4C87-6C19-332C9B6731B8}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{9D8F509D-E2E1-9F58-D5AB-9044527C9E5C}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -320,5 +406,5 @@
 			</AcousticTextures>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{F27BD930-42A6-5960-AA58-6D0797BE3D53}</FileHash>
+	<FileHash>{BA09680A-3EDB-CBBF-6A78-B5AD1527ABE5}</FileHash>
 </SoundBanksInfo>

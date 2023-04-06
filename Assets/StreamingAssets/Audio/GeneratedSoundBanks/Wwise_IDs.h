@@ -13,7 +13,10 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID AMBIENTGROWLPLAY = 2383804976U;
+        static const AkUniqueID ELEVATOR = 3705378287U;
         static const AkUniqueID EMPTYGUN = 1095758322U;
+        static const AkUniqueID GROWL = 3910827136U;
         static const AkUniqueID GUNSHOT = 1287408361U;
         static const AkUniqueID HALLWAYAMBIENTPLAY = 190747137U;
         static const AkUniqueID PLAY_SOUND_MAIN = 347371133U;
@@ -21,6 +24,7 @@ namespace AK
         static const AkUniqueID RELOAD = 456382354U;
         static const AkUniqueID SCREECHAMBIENTPLAY = 2069746738U;
         static const AkUniqueID SHIPGROANPLAY = 1892759460U;
+        static const AkUniqueID SPIDERGROWL = 2150865033U;
         static const AkUniqueID STOP_SOUND_MAIN = 3284699527U;
         static const AkUniqueID VENTAMBIENTPLAY = 1210304830U;
     } // namespace EVENTS

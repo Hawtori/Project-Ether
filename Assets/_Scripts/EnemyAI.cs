@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
+
 public class EnemyAI : MonoBehaviour
 {
+
+   
     public NavMeshAgent agent;
     public Transform player; //, vent;
                              //public Transform[] vents;
@@ -50,6 +53,7 @@ public class EnemyAI : MonoBehaviour
         //if (!playerVisible && !playerCanAttacked /*&& goVent && ventFound*/) Vent();
         if (playerVisible && !playerCanAttacked)
         {
+
             //goVent = false;
             Chase();
         }
@@ -97,6 +101,8 @@ public class EnemyAI : MonoBehaviour
         if (CheckIfOnNavMesh())
             agent.SetDestination(player.position);
         else Debug.Log("Agent " + transform.name + " is not on a navmesh");
+
+        
     }
 
     /*
