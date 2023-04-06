@@ -29,7 +29,7 @@ public class PositionUpdate : MonoBehaviour
     private Vector3 remotePosition;
     private Vector3 remoteRotation;
     private Vector3 remoteVelocity;
-    private float remoteHealth = 4;
+    private int remoteHealth = 4;
 
     private void Awake()
     {
@@ -62,13 +62,18 @@ public class PositionUpdate : MonoBehaviour
     {
         inputs = PlayerMovement.Instance.GetMovement();
         if (inputs.magnitude > 0) flag = true;
+
+        // prediction
+        remotePosition += remoteVelocity * Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
-        remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
-        remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
+        remotePlayer.transform.position = remotePosition;
+        remotePlayer.transform.rotation = Quaternion.Euler(remoteRotation);
+        //remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
+        //remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
+        //remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
         remotePlayer.GetComponent<Health>().SetHealth(remoteHealth);
     }
 
@@ -85,6 +90,7 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
+<<<<<<< Updated upstream
                 Debug.LogWarning(" > " + msg[3][0]);
             try
             {
@@ -94,6 +100,9 @@ public class PositionUpdate : MonoBehaviour
             {
                 remoteHealth = 1;
             }
+=======
+            remoteHealth = int.Parse(msg[3]);
+>>>>>>> Stashed changes
 
             float[] pos = new float[3];
             float[] rot = new float[3];
