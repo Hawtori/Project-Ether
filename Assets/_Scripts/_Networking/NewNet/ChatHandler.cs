@@ -10,7 +10,6 @@ public class ChatHandler : MonoBehaviour
 
     public TMP_InputField input;
     public TMP_Text chatHistory;
-    public Client client;
 
     private void Awake()
     {
@@ -21,7 +20,12 @@ public class ChatHandler : MonoBehaviour
     // on send click
     public void SendMessage()
     {
-        client.SendMessageTCP(input.text);
+        string msg = (NetInfo.Instance.GetClientNum()+1).ToString("0")+"^"; 
+            msg += input.text;
+
+        Client.Instance.SendMessageTCP(msg);
+
+        input.text = "";
     }
 
     public void ReceiveMessage(string msg)
