@@ -85,13 +85,13 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
+                Debug.LogWarning(" > " + msg[3][0]);
             try
             {
                 remoteHealth = float.Parse(msg[3]);
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e + " : " + msg[3]);
                 remoteHealth = 1;
             }
 
