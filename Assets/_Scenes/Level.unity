@@ -34046,7 +34046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d6d79f88c70cc4484c4a493b545549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localPlayer: {fileID: 8900554369959250824}
+  localPlayer: {fileID: 8900554370563181060}
   remotePlayer: {fileID: 243710501}
 --- !u!1001 &1846719019
 PrefabInstance:

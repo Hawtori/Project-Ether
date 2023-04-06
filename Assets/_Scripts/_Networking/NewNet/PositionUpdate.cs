@@ -29,7 +29,7 @@ public class PositionUpdate : MonoBehaviour
     private Vector3 remotePosition;
     private Vector3 remoteRotation;
     private Vector3 remoteVelocity;
-    private float remoteHealth = 4;
+    private int remoteHealth = 4;
 
     private void Awake()
     {
@@ -62,13 +62,18 @@ public class PositionUpdate : MonoBehaviour
     {
         inputs = PlayerMovement.Instance.GetMovement();
         if (inputs.magnitude > 0) flag = true;
+
+        // prediction
+        remotePosition += remoteVelocity * Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
-        remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
-        remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
+        remotePlayer.transform.position = remotePosition;
+        remotePlayer.transform.rotation = Quaternion.Euler(remoteRotation);
+        //remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
+        //remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
+        //remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
         remotePlayer.GetComponent<Health>().SetHealth(remoteHealth);
     }
 
@@ -85,7 +90,17 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
-            remoteHealth = float.Parse(msg[3]);
+
+                Debug.LogWarning(" > " + msg[3][0]);
+            try
+            {
+                remoteHealth = int.Parse(msg[3]);
+            }
+            catch (Exception e)
+            {
+                remoteHealth = 1;
+            }
+            remoteHealth = int.Parse(msg[3]);
 
             float[] pos = new float[3];
             float[] rot = new float[3];
@@ -101,6 +116,8 @@ public class PositionUpdate : MonoBehaviour
             remotePosition = new Vector3(pos[0], pos[1], pos[2]);
             remoteRotation = new Vector3(rot[0], rot[1], rot[2]);
             remoteVelocity = new Vector3(vel[0], vel[1], vel[2]);
+
+            Debug.Log("Received: " + remotePosition + " : " + remoteRotation);
         }
     }
 
@@ -120,6 +137,8 @@ public class PositionUpdate : MonoBehaviour
             sendMsg += "^" + localPlayer.gameObject.GetComponent<hurtplayer>().hitPoint.ToString();                                               // health
 
             buffer = Encoding.ASCII.GetBytes(sendMsg);
+
+            Debug.Log("Sending: " + sendMsg);
 
             socket.SendTo(buffer, remoteEP);
             flag = false;
