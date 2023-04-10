@@ -207,7 +207,15 @@ public class Client : MonoBehaviour
             executionQ.Enqueue(AppendTextJoining);
         }
 
-        // text messages for chat, handled by chat handler
+        // text messages for chat
+        if (split[0] == "1" || split[0] == "2" || split[0] == "3")
+        {
+            // send to chat handler
+            indicator = int.Parse(split[0]);
+            this.msg = split[1];
+            executionQ.Enqueue(UpdateTextChat);
+            // chathandler.instance.addText(split[1]);
+        }
 
         // set game seed
         if (split[0] == "4")
@@ -285,7 +293,7 @@ restartCallBack:
 
     private void UpdateTextChat()
     {
-
+        ChatHandler.instance.ReceiveMessage(msg);
     }
 
     private IEnumerator StartGame()

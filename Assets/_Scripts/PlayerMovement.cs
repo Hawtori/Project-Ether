@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(this);
         rb = GetComponent<Rigidbody>();
     }
