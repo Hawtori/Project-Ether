@@ -25,7 +25,7 @@ public class OxygenUI : MonoBehaviour
 
         normalizedOxygen = (currentOxygen/maxOxygen);
 
-        Debug.Log(normalizedOxygen);
+        //Debug.Log(normalizedOxygen);
 
         oxygenUIBar.GetComponent<RectTransform>().localScale = new Vector3 (normalizedOxygen,1,1);
 

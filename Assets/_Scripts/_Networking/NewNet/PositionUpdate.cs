@@ -25,7 +25,10 @@ public class PositionUpdate : MonoBehaviour
     private float netRefreshRate = 0.4f;
     private bool flag = true;
 
+    private float threshold = 1.5f;
+
     private Vector2 inputs;
+    private Vector3 recvPosition;
     private Vector3 remotePosition;
     private Vector3 remoteRotation;
     private Vector3 remoteVelocity;
@@ -55,6 +58,8 @@ public class PositionUpdate : MonoBehaviour
 
         socket.Connect(remoteEP);
 
+        remotePosition = remotePlayer.transform.position;
+
         StartCoroutine(SendUpdates());
     }
 
@@ -66,9 +71,9 @@ public class PositionUpdate : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateState();
         remotePlayer.GetComponent<Rigidbody>().MovePosition(remotePosition);
         remotePlayer.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(remoteRotation));
-        remotePlayer.GetComponent<Rigidbody>().velocity = remoteVelocity;
         remotePlayer.GetComponent<Health>().SetHealth(remoteHealth);
     }
 
@@ -85,7 +90,10 @@ public class PositionUpdate : MonoBehaviour
             string[] bPos = msg[0].Split(',');
             string[] bRot = msg[1].Split(',');
             string[] bVel = msg[2].Split(',');
-            remoteHealth = float.Parse(msg[3]);
+
+            remoteHealth = (int)char.GetNumericValue(msg[3][0]);
+
+            Debug.LogWarning(" > " + msg[3][0]);
 
             float[] pos = new float[3];
             float[] rot = new float[3];
@@ -98,10 +106,25 @@ public class PositionUpdate : MonoBehaviour
                 vel[i] = float.Parse(bVel[i]);
             }
 
-            remotePosition = new Vector3(pos[0], pos[1], pos[2]);
+            recvPosition = new Vector3(pos[0], pos[1], pos[2]);
             remoteRotation = new Vector3(rot[0], rot[1], rot[2]);
             remoteVelocity = new Vector3(vel[0], vel[1], vel[2]);
         }
+    }
+
+    // dead reckoning done here
+    private void UpdateState() {
+        Vector2 acceleration = new Vector2(0, 0);
+        if(recvPosition.x - remotePosition.x > threshold)
+        {
+            // if they're diverging a lot, accelerate towards the posision they actually are
+            // this will make it so the further off we are, the faster they move towards the actual position
+            // but if we're not that far off, it won't move fast towards it
+            acceleration = recvPosition - remotePosition;
+        }
+        remotePosition.x += remoteVelocity.x * Time.deltaTime + 0.5f * acceleration.x * MathF.Pow(Time.deltaTime, 2);
+        remotePosition.y += remoteVelocity.y * Time.deltaTime;
+        remotePosition.z += remoteVelocity.z * Time.deltaTime + 0.5f * acceleration.y * MathF.Pow(Time.deltaTime, 2);
     }
 
     IEnumerator SendUpdates()

@@ -7,6 +7,6 @@ public class TempSceneSwap : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //if (Input.GetKeyDown(KeyCode.P)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

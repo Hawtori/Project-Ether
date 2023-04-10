@@ -39,6 +39,7 @@ public class Client : MonoBehaviour
 
     private int indicator = -1;
     private string msg = "";
+    private string seed = "";
 
     private bool startGame = false;
 
@@ -108,6 +109,12 @@ public class Client : MonoBehaviour
     {
         if (executionQ.Count < 1) return;
         executionQ.Dequeue().Invoke();
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.H))
+        {
+            GameTimer.Instance.endGame = true;
+            SendMessageTCP("@^End");
+        }
     }
 
     // on click join
@@ -172,7 +179,6 @@ public class Client : MonoBehaviour
 
         //this.msg = "FROM CLIENT " + split[1];
         Debug.Log("FROM CLIENT Received indicator: " + split[0] + " with message: " + split[1]);
-        //Dbuggr.instance.AddText("FROM CLIENT Received message: " + split[1]);
 
         if (split[0] == "$")
         {
@@ -195,28 +201,22 @@ public class Client : MonoBehaviour
         if (split[0] == "0")
         {
             indicator = 0;
+            //clientList = clientsText.text + split[1];
+            //for(int i = 1; i < split.Length; i++) 
             this.msg = split[1];
             executionQ.Enqueue(AppendTextJoining);
         }
 
-        // text messages for chat
-        if (split[0] == "1" || split[0] == "2" || split[0] == "3")
-        {
-            // send to chat handler
-            //indicator = int.Parse(split[0]);
-            //this.msg = split[1];
-            //executionQ.Enqueue(UpdateTextChat);
-            // chathandler.instance.addText(split[1]);
-        }
+        // text messages for chat, handled by chat handler
 
         // set game seed
         if (split[0] == "4")
         {
             indicator = 4;
-            this.msg = split[1];
+            this.seed = split[1];
             executionQ.Enqueue(SetSeed);
         }
-            //Debug.Log("Setting seed: " + split[1]);
+
         // enemy damaged
         if (split[0] == "!")
         {
@@ -231,7 +231,13 @@ public class Client : MonoBehaviour
         if (split[0] == "@")
         {
             // change something about game 
+            // when end game condition is triggered, change game state for both
+            if (split[1] == "End")
+            {
+                GameTimer.Instance.endGame = true;
+            }
         }
+
 restartCallBack:
         receiveBuffer = new byte[512];
         Debug.Log("FROM CLIENT Restarting receive");
@@ -260,13 +266,13 @@ restartCallBack:
 
     private void AppendTextJoining()
     {
-        clientsText.text += msg + '\n';
+        clientsText.text += msg;
     }
 
     private void SetSeed()
     {
         int seed;
-        if (int.TryParse(msg, out seed))
+        if (int.TryParse(this.seed, out seed))
         {
             NetInfo.Instance.SetSeed(seed);
         }
